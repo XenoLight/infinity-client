@@ -594,6 +594,7 @@ public class JavaLexer implements Lexer {
 	private int yy_markedPos;
 
 	/** the textposition at the last state to be included in yytext */
+	@SuppressWarnings("unused")
 	private int yy_pushbackPos;
 
 	/** the current text position in the buffer */

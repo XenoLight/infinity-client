@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
@@ -58,7 +59,7 @@ public class GiantSpiderKiller extends Script implements PaintListener, MessageL
     private int potions[] = {0, 0, 0, 0};
     private int amounts[] = {0, 0, 0, 0};
     private final int tabConstants[] = {
-        TAB_FRIENDS, TAB_CLAN, TAB_QUESTS, TAB_STATS, TAB_NOTES
+        Game.tabFriends, Game.tabClan, Game.tabQuests, Game.tabStats, Game.tabNotes
     };
     private final int statConstants[] = {
         1, 2, 4, 21
@@ -214,7 +215,7 @@ public class GiantSpiderKiller extends Script implements PaintListener, MessageL
                     {skills.getRealLvl(Constants.STAT_HITPOINTS),
                         skills.getCurrentXP(Constants.STAT_HITPOINTS)}};
         if (settings.get(Constants.SETTING_AUTO_RETALIATE) == 1) {
-            game.openTab(Constants.TAB_ATTACK);
+            game.openTab(Game.tabInventory);
             wait(random(800, 1000));
             if (!iface.clickChild(884, 18, "Auto")) {
                 log("failed to turn auto retaliate on");
@@ -800,7 +801,7 @@ public class GiantSpiderKiller extends Script implements PaintListener, MessageL
                 camera.setRotation(random(1, 360));
             } else {
                 final int tab = tabConstants[random(0, tabConstants.length)];
-                if (tab == TAB_STATS) {
+                if (tab == Game.tabStats) {
                     game.openTab(tab);
                     wait(random(600, 700));
                     final RSInterface statInterface = iface.get(320);

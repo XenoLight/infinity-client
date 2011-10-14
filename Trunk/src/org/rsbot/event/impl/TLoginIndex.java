@@ -18,7 +18,7 @@ public class TLoginIndex implements TextPaintListener {
 	@Override
 	public int drawLine(final Graphics render, int idx) {
 		StringUtil.drawLine(render, idx++,
-				"Client State: " + ctx.getLoginIndex());
+				"Client State: " + ctx.game.getLoginIndex());
 		return idx;
 	}
 }

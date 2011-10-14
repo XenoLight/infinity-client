@@ -17,6 +17,7 @@ public class UncachedClassLoader extends ClassLoader {
 
 	@Override
 	public Class<?> loadClass(final String name) throws ClassNotFoundException {
+		@SuppressWarnings("rawtypes")
 		final Class loadedClass = findLoadedClass(name);
 		if (loadedClass != null)
 			return loadedClass;

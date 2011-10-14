@@ -463,7 +463,7 @@ public class MouseHandler {
 
 	public Point[] generateMousePath(final int Amount, final Point destination) {
 		return generateMousePath(Amount,
-				MouseHandler.methods.getMouseLocation(), destination);
+				methods.mouse.getLocation(), destination);
 	}
 
 	/**

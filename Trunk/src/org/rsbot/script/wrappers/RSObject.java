@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.script.Calculations;
-import org.rsbot.script.Constants;
 import org.rsbot.script.Methods;
 
 public class RSObject {
@@ -105,16 +105,16 @@ public class RSObject {
 			return model.click(leftClick);
 		} else {
 			Point p = Calculations.tileToScreen(getLocation());
-			if (methods.pointOnScreen(p)) {
-				methods.moveMouse(p);
-				if (methods.pointOnScreen(p)) {
-					methods.clickMouse(leftClick);
+			if (methods.calculate.pointOnScreen(p)) {
+				methods.mouse.move(p);
+				if (methods.calculate.pointOnScreen(p)) {
+					methods.mouse.click(leftClick);
 					return true;
 				} else {
 					p = Calculations.tileToScreen(getLocation());
-					if (methods.pointOnScreen(p)) {
-						methods.moveMouse(p);
-						methods.clickMouse(leftClick);
+					if (methods.calculate.pointOnScreen(p)) {
+						methods.mouse.move(p);
+						methods.mouse.click(leftClick);
 						return true;
 					}
 				}
@@ -155,7 +155,7 @@ public class RSObject {
 	 * @return The angle
 	 */
 	public int getAngle() {
-		return methods.getAngleToCoordinates(this.x, this.y);
+		return methods.camera.getCordsAngle(this.x, this.y);
 	}
 
 	/**
@@ -336,7 +336,7 @@ public class RSObject {
 			newy = y + methods.random(deltayLow, deltayHi);
 			location = new Point(newx, newy);
 		} while (ct++ < 100 && !poly.contains(location)
-				|| !methods.pointOnScreen(location));
+				|| !methods.calculate.pointOnScreen(location));
 
 		if (ct == 100) {
 			return null;
@@ -586,7 +586,7 @@ public class RSObject {
 	 */
 	public void turnTo() {
 		final int angle = this.getAngle() + methods.random(-2, 2);
-		methods.setCameraRotation(angle);
+		methods.camera.setRotation(angle);
 	}
 
 	/**
@@ -596,10 +596,10 @@ public class RSObject {
 	 * @return <tt>true</tt> if successful, <tt>false</tt> otherwise
 	 */
 	public boolean useItemOn(final RSItem item) {
-		if (methods.getCurrentTab() != Constants.TAB_INVENTORY) {
-			methods.openTab(Constants.TAB_INVENTORY);
+		if (methods.game.getCurrentTab() != Game.tabInventory) {
+			methods.game.openTab(Game.tabInventory);
 		}
 
-		return methods.atInventoryItem(item.getID(), "Use") && this.click(true);
+		return methods.inventory.clickItem(item.getID(), "Use") && this.click(true);
 	}
 }

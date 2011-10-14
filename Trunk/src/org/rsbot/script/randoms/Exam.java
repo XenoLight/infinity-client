@@ -65,6 +65,7 @@ public class Exam extends Random implements PaintListener {
 			return (One != -1) && (Two != -1) && (Three != -1);
 		}
 
+		@SuppressWarnings("unused")
 		public void guess() {
 			final int[] objects = new int[4];
 			objects[0] = iface.getChild(nextObjectInterface, 10).getChildID();

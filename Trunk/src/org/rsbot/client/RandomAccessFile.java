@@ -53,7 +53,7 @@ public class RandomAccessFile {
 				if (b == null) {
 					return;
 				}
-				client = b.getClient();
+				client = Bot.getClient();
 			}
 			final String accountName = client != null ? client.getCurrentUsername() : "";
 

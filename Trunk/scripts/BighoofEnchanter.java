@@ -463,22 +463,16 @@ public class BighoofEnchanter extends Script implements PaintListener {
 			game.openTab(Game.tabFriends);
 			return random(100, 500);
 		case 10:
-			game.openTab(Game.tabIgnore);
-			return random(100, 500);
 
 		case 11:
 			game.openTab(Game.tabClan);
 			return random(100, 500);
 
 		case 12:
-			game.openTab(TAB_CONTROLS);
-			return random(100, 500);
 		case 13:
 			game.openTab(Game.tabMagic);
 			return random(100, 500);
 		case 14:
-			game.openTab(TAB_OPTIONS);
-			return random(100, 500);
 		case 15:
 			game.openTab(Game.tabStats);
 			return random(100, 500);

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
@@ -339,8 +340,8 @@ public class MFGCager extends Script implements PaintListener, MessageListener {
 			wait(random(50, 150));
 			return;
 		case 7:
-			if (game.getCurrentTab() != Constants.TAB_STATS) {
-				game.openTab(Constants.TAB_STATS);
+			if (game.getCurrentTab() != Game.tabStats) {
+				game.openTab(Game.tabStats);
 			}
 			mouse.click(random(716, 721), random(415, 430), true);
 			mouse.move(random(613, 633), random(421, 441));

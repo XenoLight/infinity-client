@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Constants;
@@ -208,7 +209,7 @@ public class zzExtendedBarbarianCourse extends Script implements PaintListener {
     private void hoverAgility() {
         final RSInterfaceChild agitab = iface.get(320).getChild(
                 132);
-        game.openTab(Constants.TAB_STATS);
+        game.openTab(Game.tabStats);
         log("Checking agility stat.");
         mouse.move(new Point(agitab.getAbsoluteX()
                 + random(2, agitab.getWidth() - 1), agitab.getAbsoluteY()

@@ -1514,6 +1514,10 @@ public class Inventory {
 	 * @return <tt>true</tt> if the item was selected; otherwise <tt>false</tt>.
 	 */
 	public boolean selectItem(final RSItem item) {
+		if (item==null)  {
+			return false;
+		}
+		
 		final int itemID = item.getID();
 		RSItem selItem = getSelectedItem();
 		if (selItem != null && selItem.getID() == itemID) {
@@ -1570,6 +1574,9 @@ public class Inventory {
 	 *         otherwise <tt>false</tt>.
 	 */
 	public boolean useItem(final RSItem item, final RSItem targetItem) {
+		if (item==null || targetItem==null)  {
+			return false;
+		}
 		methods.game.openTab(Game.tabInventory);
 		return selectItem(item) && targetItem.action("Use");
 	}
@@ -1585,6 +1592,10 @@ public class Inventory {
 	 *         RSItem and RSObject; otherwise <tt>false</tt>.
 	 */
 	public boolean useItem(final RSItem item, final RSObject targetObject) {
+		if (item==null || targetObject==null)  {
+			return false;
+		}
+		
 		methods.game.openTab(Game.tabInventory);
 		return selectItem(item)
 		&& targetObject.action("Use", targetObject.getName());

@@ -35,6 +35,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.events.MessageEvent;
@@ -128,8 +129,6 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
     public int BarID;
     private int startXP;
     private int startLVL;
-    private int mouldID;
-    private int madeID;
     private int Barxp;
     public int[] smithani = {3243, 899, 827};
     //SYSTEM DOUBLES
@@ -146,7 +145,6 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
     private String BarName;
     private String ClickName;
     private String OreName1;
-    private String OreName2;
     private String status = ("Loading...");
     private long scriptStartTime;
     private boolean setAltitude = false;
@@ -487,10 +485,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Bronze Bar";
             ClickName = "Bronze";
             OreName1 = "Copper ore";
-            OreName2 = "Tin ore";
             BarID = 2349;
             Barxp = (int) (B1);
-            madeID = 2349;
             Ore1 = 436;
             Ore2 = 438;
             Ore1Amount = 14;
@@ -501,10 +497,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Blurite Bar";
             ClickName = "Blurite";
             OreName1 = "blurite ore";
-            OreName2 = "blurite ore";
             BarID = 9467;
             Barxp = (int) (B0);
-            madeID = 9467;
             Ore1 = 668;
             Ore2 = 668;
             Ore1Amount = 28;
@@ -515,10 +509,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Iron Bar";
             ClickName = "Iron";
             OreName1 = "Iron ore";
-            OreName2 = "Iron ore";
             BarID = 2351;
             Barxp = (int) (B2);
-            madeID = 2351;
             Ore1 = 440;
             Ore2 = 440;
             Ore1Amount = 28;
@@ -529,10 +521,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Silver Bar";
             ClickName = "Silver";
             OreName1 = "Silver ore";
-            OreName2 = "Silver ore";
             BarID = 2355;
             Barxp = (int) (B3);
-            madeID = 2355;
             Ore1 = 442;
             Ore2 = 442;
             Ore1Amount = 28;
@@ -543,10 +533,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Steel Bar";
             ClickName = "Steel";
             OreName1 = "Iron ore";
-            OreName2 = "Coal";
             BarID = 2353;
             Barxp = (int) (B4);
-            madeID = 2353;
             Ore1 = 440;
             Ore2 = 453;
             Ore1Amount = 9;
@@ -557,9 +545,7 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Gold Bar";
             ClickName = "Gold";
             OreName1 = "Gold ore";
-            OreName2 = "Gold ore";
             BarID = 2357;
-            madeID = 2357;
             Ore1 = 444;
             Ore2 = 444;
             Ore1Amount = 28;
@@ -575,10 +561,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Mithril Bar";
             ClickName = "Mithril";
             OreName1 = "Mithril ore";
-            OreName2 = "Coal";
             BarID = 2359;
             Barxp = (int) (B6);
-            madeID = 2357;
             Ore1 = 447;
             Ore2 = 453;
             Ore1Amount = 5;
@@ -589,10 +573,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Adamantite Bar";
             ClickName = "Adamantite";
             OreName1 = "Adamantite ore";
-            OreName2 = "Coal";
             BarID = 2361;
             Barxp = (int) (B7);
-            madeID = 2361;
             Ore1 = 449;
             Ore2 = 453;
             Ore1Amount = 4;
@@ -603,10 +585,8 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
             BarName = "Runite Bar";
             ClickName = "Runite";
             OreName1 = "Runite ore";
-            OreName2 = "Coal";
             BarID = 2363;
             Barxp = (int) (B8);
-            madeID = 2363;
             Ore1 = 451;
             Ore2 = 453;
             Ore1Amount = 3;
@@ -638,18 +618,18 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
                 mouse.move(x, y);
                 return retval;
             case 3:
-                game.openTab(TAB_INVENTORY);
+                game.openTab(Game.tabInventory);
                 return retval;
             case 4:
                 if (player.getMine().isMoving()) {
                     return retval;
                 }
             case 5:
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 mouse.move(random(663, 711), random(325, 348));
                 return retval;
             case 6:
-                    game.openTab(TAB_STATS);
+                    game.openTab(Game.tabStats);
                     mouse.move(xx, yy);
                     return retval;
 
@@ -707,61 +687,51 @@ public class BighoofAIOFurnaceBasic extends Script implements PaintListener,
         int random1 = random(1, random(23, 28));
         switch (random1) {
             case 1:
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 return random(100, 500);
             case 2:
-                game.openTab(TAB_ATTACK);
+                game.openTab(Game.tabAttack);
                 return random(100, 500);
             case 3:
-                game.openTab(TAB_QUESTS);
+                game.openTab(Game.tabQuests);
                 return random(100, 500);
             case 4:
-                game.openTab(TAB_EQUIPMENT);
+                game.openTab(Game.tabEquipment);
                 return random(100, 500);
             case 5:
-                game.openTab(TAB_INVENTORY);
+                game.openTab(Game.tabInventory);
                 return random(100, 500);
             case 6:
-                game.openTab(TAB_PRAYER);
+                game.openTab(Game.tabPrayer);
                 return random(100, 500);
             case 7:
-                game.openTab(TAB_MAGIC);
+                game.openTab(Game.tabMagic);
                 return random(100, 500);
             case 8:
-                game.openTab(TAB_SUMMONING);
+                game.openTab(Game.tabSumoming);
                 return random(100, 500);
             case 9:
-                game.openTab(TAB_FRIENDS);
+                game.openTab(Game.tabFriends);
                 return random(100, 500);
             case 10:
-                game.openTab(TAB_IGNORE);
-                return random(100, 500);
             case 11:
-                game.openTab(TAB_CLAN);
+                game.openTab(Game.tabClan);
                 return random(100, 500);
             case 12:
-                game.openTab(TAB_CONTROLS);
-                return random(100, 500);
             case 13:
-                game.openTab(TAB_MUSIC);
+                game.openTab(Game.tabMusic);
                 return random(100, 500);
             case 14:
-                game.openTab(TAB_OPTIONS);
-                return random(100, 500);
             case 15:
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 return random(100, 500);
             case 16:
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 return random(100, 500);
-            case 17:
-                game.openTab(TAB_INVENTORY);
-                return random(100, 500);
+            case 17:           
             case 18:
-                game.openTab(TAB_INVENTORY);
-                return random(100, 500);
             case 19:
-                game.openTab(TAB_INVENTORY);
+                game.openTab(Game.tabInventory);
                 return random(100, 500);
         }
         return random(100, 300);

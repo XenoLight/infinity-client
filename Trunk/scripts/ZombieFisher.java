@@ -1,6 +1,6 @@
 /*
- * ZombieFisherEXTREME V7.53
- *
+ * ZombieFisherEXTREME V7.54
+ * 
  * Credits:
  * BamBino/cronshaw1234/Zorlix - Updaters
  * Carmera Spin/Harpoon update - Lone Spartan
@@ -15,11 +15,13 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.Skills;
 import org.rsbot.script.wrappers.RSInterface;
+import org.rsbot.script.wrappers.RSInterfaceChild;
 import org.rsbot.script.wrappers.RSNPC;
 import org.rsbot.script.wrappers.RSObject;
 import org.rsbot.script.wrappers.RSTile;
@@ -32,7 +34,7 @@ category = "Fishing",
         description = "<html><style type='text/css'>"
         + "body {background:url('http://lazygamerz.org/client/images/back_2.png') repeat}"
         + "</style><html><head><center><img src=\"http://lazygamerz.org/client/images/logo.png\">"
-        + "<body><center><b><font size='4' color='Blue'>ZombieFisherEXTREME v7.53</font></b><br></center>"
+        + "<body><center><b><font size='4' color='Blue'>ZombieFisherEXTREME v7.54</font></b><br></center>"
         + "<center><table border='0'><tr><td><center><font size='4'><b>:: Script Settings ::</b></font></center></td></tr>"
         + "<tr><td bgcolor=#C0C0C0><center><table border='0'><tr><td colspan='2'><center>"
         + "<p></p>"
@@ -742,9 +744,9 @@ public class ZombieFisher extends Script implements PaintListener {
                 return random(1300, 1600);
             case 3:
                 // Is the current tab the inventory?
-                if (game.getCurrentTab() != TAB_INVENTORY) {
+                if (game.getCurrentTab() != Game.tabInventory) {
                     // No, so switch to the inventory tab.
-                    game.openTab(TAB_INVENTORY);
+                    game.openTab(Game.tabInventory);
                     return random(500, 750);
                 } else {
                     // No, so return
@@ -760,8 +762,8 @@ public class ZombieFisher extends Script implements PaintListener {
                     lastCheck = System.currentTimeMillis();
                     checkTime = random(60000, 180000);
 
-                    if (game.getCurrentTab() != TAB_STATS) {
-                        game.openTab(TAB_STATS);
+                    if (game.getCurrentTab() != Game.tabStats) {
+                        game.openTab(Game.tabStats);
                     }
                     mouse.move(693, 273, 28, 10);
                     return random(2000, 4000);
@@ -1109,6 +1111,18 @@ public class ZombieFisher extends Script implements PaintListener {
         if (stiles != null) {
             if (stiles.action("exchange")) {
                 wait(random(500, 2500));
+                
+                RSInterfaceChild Stiles = iface.getChild(242,6); 
+                if (Stiles!=null && Stiles.isValid())  {
+                	Stiles.click(true);
+                	
+                	Stiles = iface.getChild(232,3);
+                	if (Stiles!=null)  {
+                		iface.waitForChildOpen(Stiles, 3000);
+                		
+                		Stiles.click(true);
+                	}
+                }
                 state = State.S_WALKTO_SPOT;
 
                 if (toArea[toArea.length - 1].distanceTo() <= 3) {
@@ -1199,7 +1213,7 @@ public class ZombieFisher extends Script implements PaintListener {
 
         // Is the player's inventory full?
         if (inventory.isFull()) {
-            game.openTab(TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
             state = (powerFishing == true) ? State.S_DROP_ALL : State.S_WALKTO_BANK;
             return random(250, 500);
 

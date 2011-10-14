@@ -21,7 +21,7 @@ public class DrawPlayers implements PaintListener {
 
 	@Override
 	public void onRepaint(final Graphics render) {
-		if (!ctx.isLoggedIn()) {
+		if (!ctx.game.isLoggedIn()) {
 			return;
 		}
 

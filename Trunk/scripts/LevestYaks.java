@@ -11,6 +11,7 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
@@ -717,7 +718,7 @@ public class LevestYaks extends Script implements PaintListener,
 						mouse.move(random(50, 700), random(50, 450), 2, 2);
 					}
 					if (randomNumber == 12) {
-						game.openTab(TAB_STATS);
+						game.openTab(Game.tabStats);
 						wait(random(50, 100));
 						mouse.move(675, 268, 20, 20);
 						wait(random(500, 1700));
@@ -727,7 +728,7 @@ public class LevestYaks extends Script implements PaintListener,
 						camera.setRotation(random(1, 360));
 					}
 					if (randomNumber == 14) {
-						game.openTab(TAB_STATS);
+						game.openTab(Game.tabStats);
 						wait(random(50, 100));
 						mouse.move(675, 268, 20, 20);
 						wait(random(500, 1700));
@@ -768,37 +769,37 @@ public class LevestYaks extends Script implements PaintListener,
 		int randomNumber = random(1, 15);
 		if (randomNumber <= 11) {
 			if (randomNumber == 1) {
-				game.openTab(TAB_STATS);
+				game.openTab(Game.tabStats);
 				wait(random(100, 200));
 				mouse.move(675, 268, 20, 20);
 				wait(random(500, 1700));
 			}
 			if (randomNumber == 2) {
-				game.openTab(TAB_ATTACK);
+				game.openTab(Game.tabAttack);
 			}
 			if (randomNumber == 3) {
-				game.openTab(TAB_EQUIPMENT);
+				game.openTab(Game.tabEquipment);
 			}
 			if (randomNumber == 4) {
-				game.openTab(TAB_FRIENDS);
+				game.openTab(Game.tabFriends);
 			}
 			if (randomNumber == 6) {
-				game.openTab(TAB_MAGIC);
+				game.openTab(Game.tabMagic);
 			}
 			if (randomNumber == 7) {
-				game.openTab(TAB_STATS);
+				game.openTab(Game.tabStats);
 			}
 			if (randomNumber == 8) {
-				game.openTab(TAB_QUESTS);
+				game.openTab(Game.tabQuests);
 			}
 			if (randomNumber == 9) {
-				game.openTab(TAB_CLAN);
+				game.openTab(Game.tabClan);
 			}
 			if (randomNumber == 10) {
-				game.openTab(TAB_MUSIC);
+				game.openTab(Game.tabMusic);
 			}
 			if (randomNumber == 11) {
-				game.openTab(TAB_ACHIEVEMENTDIARIES);
+				game.openTab(Game.tabTasks);
 			}
 		}
 	}

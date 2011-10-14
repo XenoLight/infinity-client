@@ -1,15 +1,14 @@
 package org.rsbot.script.wrappers;
 
 import java.awt.Point;
-import java.util.logging.Logger;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.Model;
 import org.rsbot.client.Node;
 import org.rsbot.client.RSMessageData;
 import org.rsbot.client.RSNPCNode;
 import org.rsbot.script.Calculations;
-import org.rsbot.script.Constants;
 import org.rsbot.script.InputManager;
 import org.rsbot.script.Methods;
 
@@ -475,8 +474,8 @@ public class RSCharacter {
 	 * @return <tt>true</tt> if successful, <tt>false</tt> otherwise
 	 */
 	public boolean useItemOn(final RSItem item) {
-		if (methods.game.getCurrentTab() != Constants.TAB_INVENTORY) {
-			methods.game.openTab(Constants.TAB_INVENTORY);
+		if (methods.game.getCurrentTab() != Game.tabInventory) {
+			methods.game.openTab(Game.tabInventory);
 		}
 
 		return methods.inventory.clickItem(item.getID(), "Use")

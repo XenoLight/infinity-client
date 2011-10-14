@@ -19,8 +19,8 @@ public class TOrientation implements TextPaintListener {
 	@Override
 	public int drawLine(final Graphics render, int idx) {
 		Orientation or = null;
-		if (ctx.isLoggedIn()) {
-			or = ctx.getMyPlayer().getOrientation();
+		if (ctx.game.isLoggedIn()) {
+			or = ctx.player.getMine().getOrientation();
 		}
 		StringUtil.drawLine(
 				render,

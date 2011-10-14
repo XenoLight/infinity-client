@@ -82,9 +82,9 @@ public abstract class RSModel {
 	public boolean click(final boolean leftClick) {
 		try {
 			for (int i = 0; i < 10; i++) {
-				methods.moveMouse(getPoint());
-				if (contains(methods.getMouseLocation())) {
-					methods.clickMouse(leftClick);
+				methods.mouse.move(getPoint());
+				if (contains(methods.mouse.getLocation())) {
+					methods.mouse.click(leftClick);
 					return true;
 				}
 			}
@@ -182,7 +182,7 @@ public abstract class RSModel {
 		for (final Polygon poly : all) {
 			for (int j = 0; j < poly.xpoints.length; j++) {
 				final Point p = new Point(poly.xpoints[j], poly.ypoints[j]);
-				if (methods.pointOnScreen(p)) {
+				if (methods.calculate.pointOnScreen(p)) {
 					list.add(p);
 				}
 			}

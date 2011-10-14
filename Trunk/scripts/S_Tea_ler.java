@@ -7,13 +7,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
+
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
-
 import org.rsbot.event.events.MessageEvent;
-import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.event.listeners.MessageListener;
+import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Calculations;
 import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
@@ -102,22 +104,22 @@ public class S_Tea_ler extends Script implements MessageListener, PaintListener 
     private void openRandomTab() {
         switch (random(0, 12)) {
             case 1:
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 break;
             case 2:
-                game.openTab(TAB_ATTACK);
+                game.openTab(Game.tabAttack);
                 break;
             case 3:
-                game.openTab(TAB_EQUIPMENT);
+                game.openTab(Game.tabEquipment);
                 break;
             case 4:
-                game.openTab(TAB_FRIENDS);
+                game.openTab(Game.tabFriends);
                 break;
             case 5:
-                game.openTab(TAB_MAGIC);
+                game.openTab(Game.tabMagic);
                 break;
             case 6:
-                game.openTab(TAB_NOTES);
+                game.openTab(Game.tabNotes);
         }
     }
 

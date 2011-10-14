@@ -52,29 +52,73 @@ public class Game {
 	public static final int indexLoginScreen = 3;
 	public static final int indexLobby = 7;
 	public static final int indexScreenFixed = 746;
-	public static final String[] tabNames = new String[] { "Combat Styles",
-		"Stats", "Quest List", "Achievement Diaries", "Inventory",
-		"Worn Equipment", "Prayer List", "Magic Spellbook", "Objectives",
-		"Friends List", "Ignore List", "Clan Chat", "Options", "Emotes",
-		"Music Player", "Notes", "Log Out", "Friends Chat" };
+	public static final String[] tabNames = new String[] { 
+		"Combat Styles",
+		"Task List",
+		"Stats", 
+		"Quest Journals", 
+		"Inventory",
+		"Worn Equipment", 
+		"Prayer List", 
+		"Magic Spellbook", 
+		"Summoning",
+		"Friends List",
+		"dummy",
+		"Clan Chat", 
+		"Options", 
+		"Emotes",
+		"Music Player", 
+		"Notes", 
+		"Log Out", 
+		"Friends Chat" };
+	
+	// Constants for the screen tabs.
 	public static final int tabAttack = 0;
-	public static final int tabStats = 1;
-	public static final int tabQuests = 2;
+	public static final int tabTasks = 1;
+	public static final int tabStats = 2;
+	public static final int tabQuests = 3;
+	
+	/**
+	 * @deprecated Use tabTasks
+	 */
+	@Deprecated
 	public static final int tabAchieve = 3;
+	
 	public static final int tabInventory = 4;
 	public static final int tabEquipment = 5;
 	public static final int tabPrayer = 6;
 	public static final int tabMagic = 7;
 	public static final int tabSumoming = 8;
 	public static final int tabFriends = 9;
+
+	/**
+	 * @deprecated The ignore tab has been removed from the game
+	 * Use tabFriends and select the ignore list.
+	 */
+	@Deprecated
 	public static final int tabIgnore = 10;
+
 	public static final int tabClan = 11;
 	public static final int tabOptions = 12;
+	public static final int tabEmotes = 13;
+
+	/**
+	 * @deprecated Use tabEmotes instead.
+	 */
+	@Deprecated
 	public static final int tabControls = 13;
+	
 	public static final int tabMusic = 14;
 	public static final int tabNotes = 15;
+	
+	/**
+	 * @deprecated There is no logout tab any longer.
+	 */
+	@Deprecated
 	public static final int tabLogout = 16;
+	
 	public static final int tabFriendsChat = 17;
+	
 	/* chat */
 	public static final int CHAT_OPTION = 751;
 	public static final int CHAT_OPTION_ALL = 2;
@@ -98,9 +142,9 @@ public class Game {
 	public static final int INTERFACE_GAME_SCREEN = 548;
 	public static final int INTERFACE_LEVEL_UP = 740;
 	public static final int INTERFACE_LOGOUT = 182;
-	public static final int INTERFACE_LOGOUT_LOBBY = 1;
-	public static final int INTERFACE_LOGOUT_COMPLETE = 6;
-	public static final int INTERFACE_LOGOUT_BUTTON_FIXED = 181;
+	public static final int INTERFACE_LOGOUT_LOBBY = 2;
+	public static final int INTERFACE_LOGOUT_COMPLETE = 7;
+	public static final int INTERFACE_LOGOUT_BUTTON_FIXED = 182;
 	public static final int INTERFACE_LOGOUT_BUTTON_RESIZED = 172;
 	public static final int INTERFACE_WELCOME_SCREEN = 907;
 	public static final int INTERFACE_WELCOME_SCREEN_CHILD = 150;
@@ -451,7 +495,7 @@ public class Game {
 					|| methods.inventory.isItemSelected() == true);
 		}
 		while (!isOnLogoutTab()) {
-			methods.iface.clickChild(548, 181);
+			methods.iface.clickChild(INTERFACE_GAME_SCREEN, INTERFACE_LOGOUT_BUTTON_FIXED);
 			/* Logout button in the top right hand corner */
 			int timesToWait = 0;
 			while (!isOnLogoutTab() && timesToWait < 5) {
@@ -459,16 +503,15 @@ public class Game {
 				timesToWait++;
 			}
 		}
-		methods.iface.clickChild(182, 7);
-		/* Final logout button in the logout tab */
 
+		// Use lobby half the time and full logout the other half
 		switch (methods.random(0, 1)) {
 		case 0:
-			methods.iface.clickChild(182, 1);
+			methods.iface.clickChild(INTERFACE_LOGOUT, INTERFACE_LOGOUT_LOBBY);
 			methods.wait(methods.random(600, 900));
 			break;
 		case 1:
-			methods.iface.clickChild(182, 6);
+			methods.iface.clickChild(INTERFACE_LOGOUT, INTERFACE_LOGOUT_COMPLETE);
 			methods.wait(methods.random(600, 900));
 			break;
 		}

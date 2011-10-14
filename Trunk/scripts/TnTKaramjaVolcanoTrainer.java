@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.text.DecimalFormat;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.events.MessageEvent;
@@ -228,9 +229,9 @@ public class TnTKaramjaVolcanoTrainer extends Script implements PaintListener,
         } else {
             chatResponder = false;
         }
-        game.openTab(TAB_ATTACK);
+        game.openTab(Game.tabAttack);
         wait(random(500, 800));
-        game.openTab(TAB_INVENTORY);
+        game.openTab(Game.tabInventory);
         startTime = System.currentTimeMillis();
         defStartExp = skills.getCurrentXP(Constants.STAT_DEFENSE);
         hpStartExp = skills.getCurrentXP(Constants.STAT_HITPOINTS);
@@ -441,8 +442,8 @@ public class TnTKaramjaVolcanoTrainer extends Script implements PaintListener,
     }
 
     public void changeStyle() {
-        if ((game.getCurrentTab() != Constants.TAB_ATTACK)) {
-            game.openTab(Constants.TAB_ATTACK);
+        if ((game.getCurrentTab() != Game.tabAttack)) {
+            game.openTab(Game.tabAttack);
             wait(random(500, 700));
         }
         final int random = random(1, 5);
@@ -1045,12 +1046,12 @@ public class TnTKaramjaVolcanoTrainer extends Script implements PaintListener,
                     String end = ends[random(0, ends.length - 1)];
                     if (type.equals("questpoints")) {
                         if (qpamount.equals("") || random(0, 5) == 0) {
-                            game.openTab(TAB_QUESTS);
+                            game.openTab(Game.tabQuests);
                             wait(random(300, 500));
                             qpamount = (iface.get(190).getChild(
                                     2).getText().replace("Quest Points:", "").replace(" ", "").split("/"))[0];
                             if (random(0, 2) == 0) {
-                                game.openTab(TAB_INVENTORY);
+                                game.openTab(Game.tabInventory);
                                 wait(random(300, 500));
                             }
                         }
@@ -1081,13 +1082,13 @@ public class TnTKaramjaVolcanoTrainer extends Script implements PaintListener,
     }
 
     public void checkStats() {
-        if (game.getCurrentTab() != TAB_STATS) {
-            game.openTab(TAB_STATS);
+        if (game.getCurrentTab() != Game.tabStats) {
+            game.openTab(Game.tabStats);
             wait(random(500, 700));
         }
         mouse.move(random(547, 734), random(205, 464));
         wait(random(500, 900));
-        game.openTab(TAB_INVENTORY);
+        game.openTab(Game.tabInventory);
     }
 
     public void addTimer(String name) {
@@ -1490,9 +1491,9 @@ public class TnTKaramjaVolcanoTrainer extends Script implements PaintListener,
         }
         if (msg.contains("you've just advanced a")) {
             levels++;
-            game.openTab(TAB_ATTACK);
+            game.openTab(Game.tabAttack);
             wait(random(500, 800));
-            game.openTab(TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
         }
         if (msg.contains("you climb down through")) {
             trips++;

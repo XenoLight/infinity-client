@@ -82,9 +82,7 @@ public class ColorAnimation {
 		boolean isMoving1 = false;
 		populateMap();
 		final Color current = new Color(Bot.getImage().getRGB(x, y));
-		methods.sleep(600);
-		final int count = bounds.width * bounds.height;
-		methods.sleep(400);
+		methods.sleep(1000);
 
 		if (map[x][y].getRGB() != current.getRGB()) {
 			isMoving1 = true;

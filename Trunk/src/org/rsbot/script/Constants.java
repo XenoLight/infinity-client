@@ -30,23 +30,95 @@ public interface Constants {
 	public static final int INTERFACE_PRAYER_ORB = 749;
 	public static final int INTERFACE_RUN_ORB = 750;
 
+	/**
+	 * @deprecated Use Game.tabAttack
+	 */
+	@Deprecated
 	public static final int TAB_ATTACK = Game.tabAttack;
+	/**
+	 * @deprecated Use Game.tabStats
+	 */
+	@Deprecated
 	public static final int TAB_STATS = Game.tabStats;
+	/**
+	 * @deprecated Use Game.tabQuests
+	 */
+	@Deprecated
 	public static final int TAB_QUESTS =  Game.tabQuests;
+	/**
+	 * @deprecated Avoid using this as it is no longer supported.
+	 */
+	@Deprecated
 	public static final int TAB_ACHIEVEMENTDIARIES =  Game.tabAchieve;
+	/**
+	 * @deprecated Use Game.tabInventory
+	 */
+	@Deprecated
 	public static final int TAB_INVENTORY =  Game.tabInventory;
+	/**
+	 * @deprecated Use Game.tabEquipment
+	 */
+	@Deprecated
 	public static final int TAB_EQUIPMENT =  Game.tabEquipment;
+	/**
+	 * @deprecated Use Game.tabPrayer
+	 */
+	@Deprecated
 	public static final int TAB_PRAYER =  Game.tabPrayer;
+	/**
+	 * @deprecated Use Game.tabMagic
+	 */
+	@Deprecated
 	public static final int TAB_MAGIC =  Game.tabMagic;
+	/**
+	 * @deprecated Use Game.tabSumoming
+	 */
+	@Deprecated
 	public static final int TAB_SUMMONING =  Game.tabSumoming;
+	/**
+	 * @deprecated Use Game.tabFriends
+	 */
+	@Deprecated
 	public static final int TAB_FRIENDS =  Game.tabFriends;
+	/**
+	 * @deprecated Avoid using this as it is no longer supported.
+	 */
+	@Deprecated
 	public static final int TAB_IGNORE =  Game.tabIgnore;
+	/**
+	 * @deprecated Use Game.tabClan
+	 */
+	@Deprecated
 	public static final int TAB_CLAN =  Game.tabClan;
+	/**
+	 * @deprecated Use Game.tabOptions
+	 */
+	@Deprecated
 	public static final int TAB_OPTIONS =  Game.tabOptions;
+	/**
+	 * @deprecated Avoid using this as it is no longer supported.
+	 */
+	@Deprecated
 	public static final int TAB_CONTROLS =  Game.tabControls;
+	/**
+	 * @deprecated Use Game.tabMusic
+	 */
+	@Deprecated
 	public static final int TAB_MUSIC =  Game.tabMusic;
+	/**
+	 * @deprecated Use Game.tabNotes
+	 */
+	@Deprecated
 	public static final int TAB_NOTES =  Game.tabNotes;
+	/**
+	 * @deprecated Avoid using this as it is no longer supported.
+	 */
+	@Deprecated
 	public static final int TAB_LOGOUT =  Game.tabLogout;
+	/**
+	 * @deprecated Use Game.tabFriendsChat
+	 */
+	@Deprecated
 	public static final int TAB_FRIENDSCHAT =  Game.tabFriendsChat;
 
 	public static final int STAT_ATTACK = 0;

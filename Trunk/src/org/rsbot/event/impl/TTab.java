@@ -18,7 +18,7 @@ public class TTab implements TextPaintListener {
 
 	@Override
 	public int drawLine(final Graphics render, int idx) {
-		final int cTab = ctx.getCurrentTab();
+		final int cTab = ctx.game.getCurrentTab();
 		StringUtil.drawLine(render, idx++, "Current Tab: " + cTab
 				+ (cTab != -1 ? " (" + Constants.TAB_NAMES[cTab] + ")" : ""));
 		return idx;

@@ -24,6 +24,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import org.lazygamerz.scripting.api.GE;
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.events.MessageEvent;
@@ -797,14 +798,14 @@ public class BloddyGibsGuildMiner extends Script implements PaintListener,
 								if (type.equals("questpoints")) {
 									if (qpamount.equals("")
 											|| random(0, 5) == 0) {
-										game.openTab(TAB_QUESTS);
+										game.openTab(Game.tabQuests);
 										wait(random(300, 500));
 										qpamount = (iface.get(
 												190).getChild(2).getText()
 												.replace("Quest Points:", "")
 												.replace(" ", "").split("/"))[0];
 										if (random(0, 2) == 0) {
-											game.openTab(TAB_INVENTORY);
+											game.openTab(Game.tabInventory);
 											wait(random(300, 500));
 										}
 									}
@@ -1231,37 +1232,37 @@ public class BloddyGibsGuildMiner extends Script implements PaintListener,
 		int randomNumber = random(1, 11);
 		if (randomNumber <= 11) {
 			if (randomNumber == 1) {
-				game.openTab(TAB_STATS);
+				game.openTab(Game.tabStats);
 				wait(random(100, 200));
 				mouse.move(676, 211, 20, 20);
 				wait(random(500, 1700));
 			}
 			if (randomNumber == 2) {
-				game.openTab(TAB_ATTACK);
+				game.openTab(Game.tabAttack);
 			}
 			if (randomNumber == 3) {
-				game.openTab(TAB_EQUIPMENT);
+				game.openTab(Game.tabEquipment);
 			}
 			if (randomNumber == 4) {
-				game.openTab(TAB_FRIENDS);
+				game.openTab(Game.tabFriends);
 			}
 			if (randomNumber == 6) {
-				game.openTab(TAB_MAGIC);
+				game.openTab(Game.tabMagic);
 			}
 			if (randomNumber == 7) {
-				game.openTab(TAB_STATS);
+				game.openTab(Game.tabStats);
 			}
 			if (randomNumber == 8) {
-				game.openTab(TAB_QUESTS);
+				game.openTab(Game.tabQuests);
 			}
 			if (randomNumber == 9) {
-				game.openTab(TAB_CLAN);
+				game.openTab(Game.tabClan);
 			}
 			if (randomNumber == 10) {
-				game.openTab(TAB_MUSIC);
+				game.openTab(Game.tabMusic);
 			}
 			if (randomNumber == 11) {
-				game.openTab(TAB_ACHIEVEMENTDIARIES);
+				game.openTab(Game.tabTasks);
 			}
 		}
 	}
@@ -1578,13 +1579,13 @@ public class BloddyGibsGuildMiner extends Script implements PaintListener,
 	}
 
 	public void checkStats() {
-		if (game.getCurrentTab() != TAB_STATS) {
-			game.openTab(TAB_STATS);
+		if (game.getCurrentTab() != Game.tabStats) {
+			game.openTab(Game.tabStats);
 			wait(random(500, 700));
 		}
 		mouse.move(random(547, 734), random(205, 464));
 		wait(random(500, 900));
-		game.openTab(TAB_INVENTORY);
+		game.openTab(Game.tabInventory);
 	}
 
 	public void addTimer(String name) {

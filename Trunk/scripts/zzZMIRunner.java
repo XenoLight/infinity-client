@@ -62,9 +62,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.events.MessageEvent;
-import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.event.listeners.MessageListener;
+import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
@@ -722,11 +723,11 @@ public class zzZMIRunner extends Script
             return false;
         }
 
-        game.openTab(TAB_MAGIC);
+        game.openTab(Game.tabMagic);
 
         iface.waitForOpen(iface.get(INTERFACE_LUNAR_SPELLS), 2500);
 
-        return game.getCurrentTab() == Constants.TAB_MAGIC
+        return game.getCurrentTab() == Game.tabMagic
                 && iface.clickChild(INTERFACE_LUNAR_SPELLS, spellID);
     }
 
@@ -1301,8 +1302,8 @@ public class zzZMIRunner extends Script
                 }
             }
 
-            if (game.getCurrentTab() != TAB_STATS) {
-                game.openTab(TAB_STATS);
+            if (game.getCurrentTab() != Game.tabStats) {
+                game.openTab(Game.tabStats);
 
                 int r2 = random(0, 999);
 
@@ -1372,8 +1373,8 @@ public class zzZMIRunner extends Script
 
         if (random(0, 99) < 50) {
             wait(random(800, 950));
-            if (game.getCurrentTab() != TAB_INVENTORY) {
-                game.openTab(TAB_INVENTORY);
+            if (game.getCurrentTab() != Game.tabInventory) {
+                game.openTab(Game.tabInventory);
             }
         }
 

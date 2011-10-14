@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
@@ -1751,7 +1752,7 @@ public class InfinityWorldMiner extends Script implements PaintListener,
             mouse.click(xx5, yy5, 3, 3, false);
             mouse.click(xx6, yy6, 3, 3, true);
         } else if (!inventory.isOpen())  {
-            game.openTab(Constants.TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
         }
     }
 
@@ -1894,12 +1895,12 @@ public class InfinityWorldMiner extends Script implements PaintListener,
     public int HoverRock() {
 
         try {
-            if (game.getCurrentTab() != Constants.TAB_INVENTORY
-                    && !iface.get(Constants.INTERFACE_BANK)
+            if (game.getCurrentTab() != Game.tabInventory
+                    && !iface.get(INTERFACE_BANK)
                     .isValid()
-                    && !iface.get(Constants.INTERFACE_STORE)
+                    && !iface.get(INTERFACE_STORE)
                     .isValid()) {
-                game.openTab(Constants.TAB_INVENTORY);
+                game.openTab(Game.tabInventory);
             }
             final int[] items = inventory.getArray();
             final java.util.List<Integer> possible = new ArrayList<Integer>();

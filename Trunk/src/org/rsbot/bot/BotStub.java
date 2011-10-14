@@ -47,7 +47,7 @@ public class BotStub implements AppletStub, AppletContext {
 			codeBase = new URL("http://world" + world_prefix + "."
 					+ applet.getTargetName() + ".com");
 			documentBase = new URL("http://world" + world_prefix + "."
-					+ applet.getTargetName() + ".com/m0");
+					+ applet.getTargetName() + ".com/"+ parameters.get("gamesuffix"));
 		} catch (final MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
@@ -92,11 +92,13 @@ public class BotStub implements AppletStub, AppletContext {
 		return codeBase;
 	}
 
+	
 	@Override
 	public URL getDocumentBase() {
 		return documentBase;
 	}
 
+	
 	@Override
 	public Image getImage(final URL url) {
 		synchronized (IMAGE_CACHE) {

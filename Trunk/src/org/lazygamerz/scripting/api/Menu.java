@@ -24,7 +24,6 @@ package org.lazygamerz.scripting.api;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -306,48 +305,39 @@ public class Menu {
 		// actions, which get reversed from update to update.  We can look
 		// at the location of the "Cancel" action in the menuOptionsCache
 		// to determine which direction the indices must be counted.
-		boolean reverseOrder = true;
+		boolean reverseOrder = false;
 		if (menuActionsCache[0].equals("Cancel"))  {
-			reverseOrder = false;
+			reverseOrder = true;
 		}
 		
 		if (isCollapsed()) {
 			final Queue<MenuGroupNode> groups = new Queue<MenuGroupNode>(
 					methods.game.client().getCollapsedMenuItems());
-			int mainIdx = reverseOrder ? groups.size()-1:0;
+			int mainIdx = 0;
 			
 			for (MenuGroupNode g = groups.getHead(); g != null; 
-				 g = groups.getNext()) {
+				 g = groups.getNext(), mainIdx++) {
 
 				final Queue<MenuItemNode> subItems = new Queue<MenuItemNode>(
 						g.getItems());
 				
-				int subIdx = reverseOrder ? subItems.size()-1:0;
+				int subIdx = 0;
 
 				for (MenuItemNode item = subItems.getHead(); item != null; 
-						item = subItems.getNext()) {
+						item = subItems.getNext(), subIdx++) {
 					String itemAct = item.getAction();
 					String itemOpt = item.getOption();
 					if (itemAct.toLowerCase().contains(action.toLowerCase().trim())) {
-						if (option==null || itemOpt.toLowerCase().contains(option.toLowerCase()))  {												
+						if (option==null || itemOpt.toLowerCase().contains(option.toLowerCase()))  {
+							if (reverseOrder)  {
+								mainIdx = groups.size()-1-mainIdx;
+								subIdx = subItems.size()-1-subIdx;
+							}
+							
 							return subIdx == 0 ? clickMain(items, mainIdx)
 								: clickSub(items, mainIdx, subIdx);
 						}
 					}
-					
-					if (reverseOrder)  {
-						--subIdx;
-					}
-					else  {
-						++subIdx;
-					}
-				}
-				
-				if (reverseOrder)  {
-					--mainIdx;
-				}
-				else  {
-					++mainIdx;
 				}
 			}
 			

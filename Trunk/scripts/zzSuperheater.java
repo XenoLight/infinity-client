@@ -2,6 +2,10 @@
 // Copyright 2009,2011 zzSleepzz
 //
 // Features:
+// Version 3.0
+// - Corrected banking anomalies that recent game updates seem to have
+//   introduced.
+
 // Version 2.9
 // - Updated to new script API
 //
@@ -83,20 +87,22 @@ import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSInterfaceChild;
 import org.rsbot.script.wrappers.RSPlayer;
+import org.rsbot.script.wrappers.RSTile;
 
 @ScriptManifest(authors = {"zzSleepzz"},
 category = "Smithing",
 name = "zzSuperheater",
-version = 2.9,
+version = 3.0,
 description =
 "<html>"
 + "<head><style type=\"text/css\"> body {background-color: #FFEFD5 </style></head>"
 + "<body>"
 + "<center>"
-+ "<b><font size=+2 color=\"blue\"> zzSuperheater v2.9<br>"
++ "<b><font size=+2 color=\"blue\"> zzSuperheater v3.0<br>"
 + "by zzSleepzz</font></b><br>"
 + "<font size=-2>Based on the AutoAlcher script created by Zachafer</font>"
 + "<p>"
++ "<b><i><font color='red'>This script disables randoms to avoid cycling into the inventory tab.  The original state is restored when the script stops normally.</font></i></b>"
 + "<table>"
 + "<tr valign=top>"
 + "<td align=right><b>Instructions:</b></td><td align=left> Start with fire or lava staff weilded and nature runes in inventory.  "
@@ -144,6 +150,7 @@ public class zzSuperheater extends Script implements PaintListener {
     private static final int natureID = 561;
     private static final int fireID = 554;
     private boolean needToBank = true;
+    private RSTile home;
     private long startTime;
     private int startSmithLevel;
     private int startMagicLevel;
@@ -167,6 +174,11 @@ public class zzSuperheater extends Script implements PaintListener {
                 wait(100);
             }
 
+            // If we moved over 20 away, we assume it's a random event.
+            if (home.distanceTo() > 20) {
+                return -1;
+            }
+
             // Antiban will determine intervals of when to run and will
             // just return if pauseAntiban is set.
             zzAntiban();
@@ -187,11 +199,8 @@ public class zzSuperheater extends Script implements PaintListener {
                 }
             }
 
-            if (bank.isOpen()) {
-                bank.close();
-                wait(random(350, 450));
-            }
-
+            bank.close();
+            
             debug("Superheating");
             if (!superheat()) {
             	if (superheatSafetyCt++>6)  {
@@ -218,6 +227,10 @@ public class zzSuperheater extends Script implements PaintListener {
             wait(random(200, 350));
         }
 
+        if (!inventory.isOpen())  {
+        	inventory.open();
+        }
+        
         debug("Opening the bank.");
         if (!bank.open())  {
             if (getMenuActions()[0].contains("Walk")) {
@@ -238,6 +251,7 @@ public class zzSuperheater extends Script implements PaintListener {
             if (bank.depositAllExcept(natureID, fireID, ore, ore2))  {
             	inventory.waitForCountLess(invct+1, 2000);
             }
+            return false;
         }
 
     	invct = inventory.getCount(ore);
@@ -247,12 +261,13 @@ public class zzSuperheater extends Script implements PaintListener {
         	if (bank.deposit(ore, 0))  {
         		inventory.waitForCount(ore, 0, 2000);
         	}
+        	return false;
         }
 
         if (bank.getCount(ore) == 0 || bank.getCount(ore2) < ore2fact) {
             log("Insufficient ore to continue");
             log("Ore 1 count=" + bank.getCount(ore) + ", Ore 2 count=" + bank.getCount(ore2));
-            return false;
+            stopScript(false);
         }
 
         if (ore2ct > 0) {
@@ -268,56 +283,64 @@ public class zzSuperheater extends Script implements PaintListener {
 				else  {
 					return false;
 				}
+				
+	            return false;
             }
         }
 
 
         invct = inventory.getCount();
-        if (invct == 28 || inventory.getCount(ore) > ore1ct) {
+        if ((inventory.isFull() && inventory.getCount(ore)<ore1ct) || inventory.getCount(ore) > ore1ct) {
             if (bank.depositAllExcept(fireID, natureID))  {
-            	inventory.waitForCountLess(invct, 2000);
+            	inventory.waitForCountLess(invct, 3000);
             }
-            else  {
-            	return false;
-            }
+
+            return false;
         }
 
         invct = inventory.getCount(ore);
+        debug("ore1 invct="+invct);
         if (invct < ore1ct) {
         	debug("Withdrawing ore1...");
-            if (bank.withdraw(ore, ore1ct - inventory.getCount(ore)))  {
-            	inventory.waitForCountGreater(ore,invct,2000);
-            }
-            else  {
-            	return false;
-            }
+            bank.withdraw(ore, ore1ct - inventory.getCount(ore));
+            inventory.waitForCountGreater(ore,invct,3000);
+            wait(random(800,1000));
+            debug("now ore1 invct="+inventory.getCount(ore));
+            
+            return false;
         }
 
         // Handle misclicks on withdrawing
         invct = inventory.getCount(ore);
         if (invct > ore1ct) {
             if (bank.deposit(ore, invct - ore1ct))  {
-            	inventory.waitForCountLess(ore,invct,2000);
+            	inventory.waitForCountLess(ore,invct,3000);
             }
-            else  {
-            	return false;
-            }
+
+           	return false;
         }
 
         
-        invct = inventory.getCount();
-        if (invct == 28) {
-        	debug("Depositing excess ore2...");
-            if (bank.depositAllExcept(ore, fireID, natureID))  {
-            	inventory.waitForCountLess(invct, 2000);
-            }
-        }
-
-        
-        debug("Withdrawing ore2 (" + ore2 + ")");
-        invct = inventory.getCount(ore2);
-        if (bank.withdraw(ore2, 0))  {
-        	inventory.waitForCountGreater(ore2, invct, 2000);
+        if (ore2ct>0)  {
+	        invct = inventory.getCount();
+	        if (invct==28) {
+	        	debug("Depositing excess ore2...");
+	            if (bank.depositAllExcept(ore, fireID, natureID))  {
+	            	inventory.waitForCountLess(invct, 3000);
+	            }
+	            
+	            return false;
+	        }
+	
+	        
+	        debug("Withdrawing ore2 (" + ore2 + ")");
+	        invct = inventory.getCount(ore2);
+	        if (bank.withdraw(ore2, 0))  {
+	        	inventory.waitForCountGreater(ore2, invct, 3000);
+	        	wait(random(500,1000));
+	        	
+	        	return false;
+	        }
         }
 
 
@@ -329,7 +352,9 @@ public class zzSuperheater extends Script implements PaintListener {
 
             invct = inventory.getCount();
             if (bank.deposit(ore2, ore1ct))  {
-            	inventory.waitForCountLess(invct, 2000);
+            	if (inventory.waitForCountLess(invct, 3000)==invct)  {
+            		wait(random(1000,1500));
+            	}
             }
             else  {
             	return false;
@@ -475,7 +500,7 @@ public class zzSuperheater extends Script implements PaintListener {
             if (runmins > 0 && MagicXPChange > 0) {
                 float lvlmins = skills.getXPToNextLvl(STAT_MAGIC) / (MagicXPChange / runmins);
                 g.drawString("Next level in " + (long) lvlmins + " minutes", x, y += 14);
-                g.drawString("Magic XP per hour: " + (MagicXPChange / runmins) * 60, x, y += 12);
+                g.drawString("Magic XP/hour: " + (MagicXPChange / runmins) * 60, x, y += 12);
             }
 
 
@@ -499,7 +524,7 @@ public class zzSuperheater extends Script implements PaintListener {
             if (runmins > 0 && SmithXPChange > 0) {
                 float lvlmins = skills.getXPToNextLvl(STAT_SMITHING) / (SmithXPChange / runmins);
                 g.drawString("Next level in " + (long) lvlmins + " minutes", x, y += 14);
-                g.drawString("Magic XP per hour: " + (SmithXPChange / runmins) * 60, x, y += 12);
+                g.drawString("Smith XP/hour: " + (SmithXPChange / runmins) * 60, x, y += 12);
             }
         }
     }
@@ -590,6 +615,8 @@ public class zzSuperheater extends Script implements PaintListener {
         needToBank = needOre(false);  // See if we need ore NOW
 
         onStart = false;
+
+        home = player.getMyLocation();
 
         log("Script is starting.");
         return true;

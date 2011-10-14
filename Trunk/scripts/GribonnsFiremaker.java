@@ -33,6 +33,7 @@ import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
@@ -950,10 +951,10 @@ public class GribonnsFiremaker extends Script implements PaintListener, MessageL
 
 
     private boolean MoveMouseToItem(int itemID, boolean checkLast) {
-        if (game.getCurrentTab() != TAB_INVENTORY
+        if (game.getCurrentTab() != Game.tabInventory
                 && !iface.get(INTERFACE_BANK).isValid()
                 && !iface.get(INTERFACE_STORE).isValid()) {
-            game.openTab(TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
         }
 
         RSInterfaceChild inv = inventory.getInterface();

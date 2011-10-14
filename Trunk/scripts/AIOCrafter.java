@@ -47,17 +47,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Map;           
+import java.util.Map;
 
-import org.rsbot.script.Script;             
-import org.rsbot.script.ScriptManifest;     
+import org.lazygamerz.scripting.api.Game;
+import org.rsbot.event.listeners.PaintListener;
+import org.rsbot.script.Script;
+import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSArea;
 import org.rsbot.script.wrappers.RSInterface;
 import org.rsbot.script.wrappers.RSInterfaceChild;
 import org.rsbot.script.wrappers.RSItem;
 import org.rsbot.script.wrappers.RSObject;
 import org.rsbot.script.wrappers.RSTile;
-import org.rsbot.event.listeners.PaintListener;
 
 @ScriptManifest(
 		authors = "SuperGuy411", 
@@ -165,11 +166,11 @@ public class AIOCrafter extends Script implements PaintListener {
 			wait(random(530,670));
 			break;
 		case 2:
-			game.openTab(TAB_STATS);
+			game.openTab(Game.tabStats);
 			wait(random(440,650));					//checks xp till level
 			mouse.move(7, xCoordHover, yCoordHover);	//Crafting	
 			wait(random(1340,1720));
-			game.openTab(TAB_INVENTORY);
+			game.openTab(Game.tabInventory);
 			wait(random(530,670));
 			break;
 		case 3:
@@ -332,15 +333,15 @@ public class AIOCrafter extends Script implements PaintListener {
 			wait(random(4000,8000));
 			break;
 		case 9:
-			game.openTab(TAB_CLAN);
+			game.openTab(Game.tabClan);
 			wait(random(1200,1670));					//checks clan chat
-			game.openTab(TAB_INVENTORY);
+			game.openTab(Game.tabInventory);
 			wait(random(530,670));
 			break;
 		case 10:
-			game.openTab(TAB_FRIENDS);						//checks online friends
+			game.openTab(Game.tabFriends);						//checks online friends
 			wait(random(1340,1720));
-			game.openTab(TAB_INVENTORY);
+			game.openTab(Game.tabInventory);
 			wait(random(530,670));
 			break;
 		case 11:
@@ -547,7 +548,7 @@ public class AIOCrafter extends Script implements PaintListener {
 			}
 		}
 		wait(random(1010,1440));
-		game.openTab(TAB_STATS);						//checks new abilities
+		game.openTab(Game.tabStats);						//checks new abilities
 		wait(random(440,650));					
 		iface.clickChild(320,tabIfaceID);  	
 		wait(random(5340,6720));
@@ -565,7 +566,7 @@ public class AIOCrafter extends Script implements PaintListener {
 			iface.clickChild(741, 9, "Close");
 		}
 		wait(random(1440,1650));
-		game.openTab(TAB_INVENTORY);
+		game.openTab(Game.tabInventory);
 		wait(random(530,670));
 	}
 
@@ -865,7 +866,7 @@ public class AIOCrafter extends Script implements PaintListener {
 	
 	public void onRepaint(Graphics g) {
         if (game.isLoggedIn()) {
-        	if(game.getCurrentTab() == TAB_INVENTORY){
+        	if(game.getCurrentTab() == Game.tabInventory){
 	        	Graphics2D g2 = (Graphics2D) g;
 	        	
 	        	long millis = System.currentTimeMillis() - startTime;
@@ -1501,9 +1502,9 @@ public class AIOCrafter extends Script implements PaintListener {
 			} 
 		}*/
 			
-		if(skills.getCurrentLvl(STAT_CRAFTING) != currCraftLevel) {			//we have gained a level!
+		if(skills.getCurrentLvl(STAT_CRAFTING) > currCraftLevel) {			//we have gained a level!
 			log("Gained a Crafting level!");
-			currCraftLevel++;
+			currCraftLevel = skills.getCurrentLvl(STAT_CRAFTING);
 			levelCount++;
 			respondToLevelInc(STAT_CRAFTING);
 		}
