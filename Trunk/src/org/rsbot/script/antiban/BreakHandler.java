@@ -98,7 +98,7 @@ public class BreakHandler extends Antiban implements MessageListener {
 	"900|960, 360|480" };
 	@Override
 	public boolean activateCondition() {
-		if (getMyPlayer().isInCombat()) {
+		if (player.getMine().isInCombat()) {
 			return false;
 		}
 		if (SetConfigs) {
@@ -230,7 +230,7 @@ public class BreakHandler extends Antiban implements MessageListener {
 			}
 			game.logout();
 			wait(random(2000, 4000));
-		} while (isLoggedIn());
+		} while (game.isLoggedIn());
 		CurrentBreak = null;
 		if (!it.hasNext()) {
 			Reset = true;

@@ -7,10 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
+
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
-
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Calculations;
 import org.rsbot.script.Constants;
@@ -73,8 +75,8 @@ public class LummyFlaxSpinner extends Script implements PaintListener {
     private void antiBan(final int max) {
         final int rand = random(0, max);
         if (rand == 69) {
-            if (game.getCurrentTab() == Constants.TAB_STATS) {
-                game.openTab(Constants.TAB_INVENTORY);
+            if (game.getCurrentTab() == Game.tabStats) {
+                game.openTab(Game.tabInventory);
                 wait(random(50, 1000));
             }
             final Point screenLoc = Calculations.tileToScreen(player.getMine().getLocation());
@@ -87,16 +89,16 @@ public class LummyFlaxSpinner extends Script implements PaintListener {
                 wait(random(100, 500));
             }
         } else if (rand == 68) {
-            if (game.getCurrentTab() != Constants.TAB_STATS) {
-                game.openTab(Constants.TAB_STATS);
+            if (game.getCurrentTab() != Game.tabStats) {
+                game.openTab(Game.tabStats);
                 wait(random(200, 400));
                 if (random(0, 2) == 1) {
                 	mouse.move(random(575, 695), random(240, 435), 10);
                 }
                 mouse.move(632, 372, 7, 7);
                 wait(random(800, 1400));
-            } else if (game.getCurrentTab() == Constants.TAB_STATS) {
-                game.openTab(Constants.TAB_INVENTORY);
+            } else if (game.getCurrentTab() == Game.tabStats) {
+                game.openTab(Game.tabInventory);
                 wait(random(800, 1200));
             }
         } else if (rand == 67) {

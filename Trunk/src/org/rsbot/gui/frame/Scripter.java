@@ -102,7 +102,7 @@ class DocPosition {
 	}
 }
 
-class DocPositionComparator implements Comparator {
+class DocPositionComparator implements Comparator<Object> {
 
 	public int compare(final Object o1, final Object o2) {
 		if (o1 instanceof DocPosition && o2 instanceof DocPosition) {
@@ -265,18 +265,17 @@ public class Scripter extends JFrame {
 				this.adjustment = adjustment;
 			}
 		}
-		@SuppressWarnings("unchecked")
-		private final TreeSet iniPositions = new TreeSet(new DocPositionComparator());
+		
+		private final TreeSet<DocPosition> iniPositions = new TreeSet<DocPosition>(new DocPositionComparator());
 
-		private final HashSet newPositions = new HashSet();
+		private final HashSet<DocPosition> newPositions = new HashSet<DocPosition>();
 
-		private volatile Vector v = new Vector();
+		private volatile Vector<RecolorEvent> v = new Vector<RecolorEvent>();
 		private volatile int change = 0;
 		private volatile int lastPosition = -1;
 		private volatile boolean asleep = false;
 		private final Object lock = new Object();
 
-		@SuppressWarnings("unchecked")
 		public void color(final int position, final int adjustment) {
 			if (position < lastPosition) {
 				if (lastPosition < position - adjustment) {
@@ -293,7 +292,6 @@ public class Scripter extends JFrame {
 			}
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void run() {
 			int position = -1;
@@ -313,8 +311,8 @@ public class Scripter extends JFrame {
 					}
 				}
 				if (position != -1) {
-					SortedSet workingSet;
-					Iterator workingIt;
+					SortedSet<DocPosition> workingSet;
+					Iterator<DocPosition> workingIt;
 					final DocPosition startRequest = new DocPosition(position);
 					final DocPosition endRequest = new DocPosition(position
 							+ ((adjustment >= 0) ? adjustment : -adjustment));
@@ -507,7 +505,8 @@ public class Scripter extends JFrame {
 			+ "       @Override\n" + "       public void onFinish() {\n"
 			+ "       }\n" + "}");
 
-	private final Hashtable styles = new Hashtable();
+	private final Hashtable<String, SimpleAttributeSet> styles = 
+			new Hashtable<String, SimpleAttributeSet>();
 
 	public Scripter() {
 		setTitle("Runedev Script Editor");
@@ -558,8 +557,7 @@ public class Scripter extends JFrame {
 				java.awt.event.InputEvent.CTRL_MASK));
 		final Image Open = (Toolkit.getDefaultToolkit()
 				.getImage(GlobalConfiguration.Paths.Resources.PLAY));
-		openScript.setIcon(new ImageIcon(GlobalConfiguration.Paths
-				.getIconDirectory() + "/play.png"));
+		openScript.setIcon(new ImageIcon(Open));
 		fileMenu.add(openScript);
 
 		final JMenuItem saveScript = new JMenuItem("Save");
@@ -857,7 +855,6 @@ public class Scripter extends JFrame {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void initStyles(final int fontSize) {
 		SimpleAttributeSet style;
 

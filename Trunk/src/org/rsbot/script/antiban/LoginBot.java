@@ -48,8 +48,9 @@ public class LoginBot extends Antiban {
 	@Override
 	public boolean activateCondition() {
 		final int idx = game.getLoginIndex();
-		return (idx == INDEX_LOGGED_OUT || idx == INDEX_LOBBY)
-		&& !switchingWorlds() && getUsername() != null;
+		return (idx == INDEX_LOGGED_OUT || idx == INDEX_LOBBY ||
+				!game.isLoggedIn())
+				&& !switchingWorlds() && getUsername() != null;
 	}
 
 	/* Clicks past all of the letters */

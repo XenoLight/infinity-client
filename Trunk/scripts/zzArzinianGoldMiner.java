@@ -17,10 +17,10 @@ import java.awt.Point;
 import java.util.Map;
 
 import org.lazygamerz.scripting.api.Equipment;
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
 import org.rsbot.event.listeners.PaintListener;
-import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSInterfaceChild;
@@ -227,11 +227,11 @@ public class zzArzinianGoldMiner extends Script
                 // Put back on before proceeding.
 
                 // Open the magic tab
-                while (game.getCurrentTab() != TAB_EQUIPMENT) {
-                    game.openTab(TAB_EQUIPMENT);
+                while (game.getCurrentTab() != Game.tabEquipment) {
+                    game.openTab(Game.tabEquipment);
                     for (int i = 0; i < 20; i++) {
                         wait(20);
-                        if (game.getCurrentTab() != TAB_EQUIPMENT) {
+                        if (game.getCurrentTab() != Game.tabEquipment) {
                             break;
                         }
                     }
@@ -240,7 +240,7 @@ public class zzArzinianGoldMiner extends Script
                 RSTile loc = player.getMyLocation();
 
                 // Remove the helmet to exit the mine.
-                game.openTab(TAB_EQUIPMENT);
+                game.openTab(Game.tabEquipment);
                 if (iface.get(INTERFACE_TAB_EQUIPMENT).isValid()) {
                     iface.clickChild(INTERFACE_TAB_EQUIPMENT, Equipment.helmet);
                     wait(random(1400, 1500));
@@ -633,10 +633,10 @@ public class zzArzinianGoldMiner extends Script
                 }
             }
 
-            if (game.getCurrentTab() != TAB_STATS) {
+            if (game.getCurrentTab() != Game.tabStats) {
                 RSInterfaceChild tab = iface.get(320).getChild(
                         139);
-                game.openTab(Constants.TAB_STATS);
+                game.openTab(Game.tabStats);
 
                 mouse.move(new Point(tab.getAbsoluteX()
                         + random(2, tab.getWidth() - 1), tab.getAbsoluteY()
@@ -665,8 +665,8 @@ public class zzArzinianGoldMiner extends Script
                 }
             }
 
-            if (game.getCurrentTab() != TAB_FRIENDS) {
-                game.openTab(TAB_FRIENDS);
+            if (game.getCurrentTab() != Game.tabFriends) {
+                game.openTab(Game.tabFriends);
                 wait(random(1500, 1800));
             }
 
@@ -678,16 +678,14 @@ public class zzArzinianGoldMiner extends Script
 
         wait(random(800, 950));
         if (!inventory.isOpen()) {
-            game.openTab(TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
         }
         wait(random(250, 350));
         mouse.move(mousePos, 40, 40);
         wait(random(300, 500));
     }
 
-    public void messageReceived(MessageEvent e) { // Searches for
-        // Messages in
-        // chatbox
+    public void messageReceived(MessageEvent e) { 
         String msg = e.getMessage();
 
         if (msg.contains("manage to mine")) {

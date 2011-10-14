@@ -34,6 +34,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.Node;
 import org.rsbot.client.RSNPCNode;
@@ -270,8 +271,8 @@ public class FoulFighter extends Script implements PaintListener,
                     int RealHP = skills.getRealLvl(STAT_HITPOINTS);
                     if (CurrHP <= random(RealHP / 2, RealHP / 1.5)) {
                         if (inventory.getCount(foodID) != 0) {
-                            if (game.getCurrentTab() != TAB_INVENTORY) {
-                                game.openTab(TAB_INVENTORY);
+                            if (game.getCurrentTab() != Game.tabInventory) {
+                                game.openTab(Game.tabInventory);
                                 wait(random(400, 600));
                             }
                             doInventoryItem(foodID, "Eat");
@@ -304,8 +305,8 @@ public class FoulFighter extends Script implements PaintListener,
                                             if (inventory.getCount(bPTab) != 0) {
                                                 if ((inventory.getCount(foodID) == 0)
                                                         && (inventory.getCount(pBones) != 0)) {
-                                                    if (game.getCurrentTab() != TAB_INVENTORY) {
-                                                        game.openTab(TAB_INVENTORY);
+                                                    if (game.getCurrentTab() != Game.tabInventory) {
+                                                        game.openTab(Game.tabInventory);
                                                         wait(random(300, 500));
                                                     }
                                                     doInventoryItem(bPTab, "Break");
@@ -463,8 +464,8 @@ public class FoulFighter extends Script implements PaintListener,
                 if ((inventory.getCount(561) >= alchNum)
                         && (inventory.getCount(fRune) >= alchNum * 5)) {
                     while (alchNum > 0) {
-                        if (game.getCurrentTab() != Constants.TAB_MAGIC) {
-                            game.openTab(Constants.TAB_MAGIC);
+                        if (game.getCurrentTab() != Game.tabMagic) {
+                            game.openTab(Game.tabMagic);
                             wait(random(500, 750));
                         }
                         magic.castSpell(Constants.SPELL_HIGH_LEVEL_ALCHEMY);
@@ -503,8 +504,8 @@ public class FoulFighter extends Script implements PaintListener,
                     if (skills.getCurrentLvl(STAT_STRENGTH) <= skills.getRealLvl(STAT_STRENGTH)
                             + random(3, 5)) {
                         if (inventory.getCount(sPot) != 0) {
-                            if (game.getCurrentTab() != TAB_INVENTORY) {
-                                game.openTab(TAB_INVENTORY);
+                            if (game.getCurrentTab() != Game.tabInventory) {
+                                game.openTab(Game.tabInventory);
                                 wait(random(200, 300));
                             }
                             doInventoryItem(sPot, "Drink");
@@ -520,8 +521,8 @@ public class FoulFighter extends Script implements PaintListener,
                     if (skills.getCurrentLvl(STAT_DEFENSE) <= skills.getRealLvl(STAT_DEFENSE)
                             + random(3, 5)) {
                         if (inventory.getCount(dPot) != 0) {
-                            if (game.getCurrentTab() != TAB_INVENTORY) {
-                                game.openTab(TAB_INVENTORY);
+                            if (game.getCurrentTab() != Game.tabInventory) {
+                                game.openTab(Game.tabInventory);
                                 wait(random(200, 300));
                             }
                             doInventoryItem(dPot, "Drink");
@@ -537,8 +538,8 @@ public class FoulFighter extends Script implements PaintListener,
                     if (skills.getCurrentLvl(STAT_ATTACK) <= skills.getRealLvl(STAT_ATTACK)
                             + random(3, 5)) {
                         if (inventory.getCount(aPot) != 0) {
-                            if (game.getCurrentTab() != TAB_INVENTORY) {
-                                game.openTab(TAB_INVENTORY);
+                            if (game.getCurrentTab() != Game.tabInventory) {
+                                game.openTab(Game.tabInventory);
                                 wait(random(200, 300));
                             }
                             doInventoryItem(aPot, "Drink");
@@ -554,11 +555,11 @@ public class FoulFighter extends Script implements PaintListener,
             case BTP:
                 if (useBTP) {
                     if (inventory.getCount(bPTab) != 0
-                            && game.getCurrentTab() == TAB_INVENTORY) {
+                            && game.getCurrentTab() == Game.tabInventory) {
                         if ((inventory.getCount(foodID) == 0)
                                 && (inventory.getCount(pBones) != 0)) {
-                            if (game.getCurrentTab() != TAB_INVENTORY) {
-                                game.openTab(TAB_INVENTORY);
+                            if (game.getCurrentTab() != Game.tabInventory) {
+                                game.openTab(Game.tabInventory);
                                 wait(random(300, 500));
                             }
                             doInventoryItem(bPTab, "Break");
@@ -625,8 +626,8 @@ public class FoulFighter extends Script implements PaintListener,
                     if (player.getMine().getInteracting() == null) {
                         break;
                     }
-                    if (game.getCurrentTab() != TAB_ATTACK) {
-                        game.openTab(TAB_ATTACK);
+                    if (game.getCurrentTab() != Game.tabAttack) {
+                        game.openTab(Game.tabAttack);
                         wait(random(400, 600));
                     }
                     if (settings.get(301) != 1) {

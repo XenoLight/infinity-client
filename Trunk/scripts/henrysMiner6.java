@@ -35,9 +35,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import org.lazygamerz.scripting.api.Game;
+import org.rsbot.bot.Bot;
 import org.rsbot.client.LDModel;
 import org.rsbot.client.RSAnimable;
-import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Bank;
@@ -583,8 +584,8 @@ public class henrysMiner6 extends Script implements PaintListener {
 	public boolean clickSmelt() {
 		if (Bot.getClient().isSpellSelected())
 			return true;
-		if (game.getCurrentTab() != Constants.TAB_MAGIC) {
-			game.openTab(Constants.TAB_MAGIC);
+		if (game.getCurrentTab() != Game.tabMagic) {
+			game.openTab(Game.tabMagic);
 		}
 		return magic.castSpell(Constants.SPELL_SUPERHEAT_ITEM);
 	}
@@ -1155,7 +1156,7 @@ public class henrysMiner6 extends Script implements PaintListener {
 			return 50;
 		}
 		if (r == 40 && random(0, 100) == 5) {
-			game.openTab(Constants.TAB_STATS);
+			game.openTab(Game.tabStats);
 			wait(random(200, 2000));
 			iface.get(320).getChild(37).getArea();
 			final Rectangle pos = iface.get(320).getChild(3)
@@ -1204,7 +1205,7 @@ public class henrysMiner6 extends Script implements PaintListener {
 			return 100;
 		}
 		getMouseSpeed(random(6, 9));
-		if (game.getCurrentTab() != Constants.TAB_INVENTORY
+		if (game.getCurrentTab() != Game.tabInventory
 				&& iface.get(11).getChild(17).isValid()) {
 			depositBoxDepositExcept();
 			return 700;
@@ -1253,7 +1254,7 @@ public class henrysMiner6 extends Script implements PaintListener {
 						else
 							smeltingInAction = false;
 						int fail = 0;
-						while (game.getCurrentTab() == Constants.TAB_MAGIC) {
+						while (game.getCurrentTab() == Game.tabMagic) {
 							fail++;
 							wait(100);
 							if (fail >= 20)
@@ -1262,7 +1263,7 @@ public class henrysMiner6 extends Script implements PaintListener {
 					}
 				}
 				if (Bot.getClient().isSpellSelected()) {
-					if (game.getCurrentTab() == Constants.TAB_INVENTORY) {
+					if (game.getCurrentTab() == Game.tabInventory) {
 						clickOre();
 						lastCount--;
 						if (lastCount > 0)
@@ -1270,7 +1271,7 @@ public class henrysMiner6 extends Script implements PaintListener {
 						else
 							smeltingInAction = false;
 						int fail = 0;
-						while (game.getCurrentTab() == Constants.TAB_INVENTORY) {
+						while (game.getCurrentTab() == Game.tabInventory) {
 							fail++;
 							wait(100);
 							if (fail >= 20)

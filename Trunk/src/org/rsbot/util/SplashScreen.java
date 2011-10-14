@@ -120,9 +120,13 @@ public class SplashScreen extends JDialog {
                 System.exit(1);
             }
         });
+        //TODO: Restore to version as float after release of 2.0
+        /*
+        setTitle(GlobalConfiguration.NAME + " v"
+				+ ((float) GlobalConfiguration.getVersion() / 100));
+		*/
 		setTitle(GlobalConfiguration.NAME + " v2.0 [RC "
-				+ ((float) GlobalConfiguration.getVersion() / 100)
-				+ "]");
+				+ (GlobalConfiguration.getVersion() / 100) + "]");
         setIconImage(GlobalConfiguration
                 .getImage(GlobalConfiguration.Paths.Resources.ICON));
         final ImageIcon icon = new ImageIcon();

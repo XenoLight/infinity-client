@@ -22,6 +22,7 @@
 package org.rsbot.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
@@ -29,17 +30,17 @@ import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.rsbot.gui.toolactions.Account;
 import org.rsbot.gui.toolactions.GoTo;
 import org.rsbot.gui.toolactions.GoToFace;
 import org.rsbot.gui.toolactions.GoToProject;
 import org.rsbot.gui.toolactions.GoToTwitter;
 import org.rsbot.gui.toolactions.GoToWiki;
-import org.rsbot.gui.toolactions.Shot;
-import org.rsbot.gui.toolactions.ShotUn;
+import org.rsbot.gui.toolactions.ItemIdGui;
+import org.rsbot.gui.toolactions.NpcIdGui;
 import org.rsbot.util.GlobalConfiguration;
 
 /**
@@ -52,16 +53,24 @@ public class ButtonPanel extends JPanel {
 
 	private static final long serialVersionUID = 2951376566864605030L;
 
+	@SuppressWarnings("unused")
+	private final BotGUI gui;
 	/**
 	 * This is the default constructor
 	 */
-	public ButtonPanel() {
-                
+	public ButtonPanel(BotGUI gui) {
+		this.gui = gui;
+		
+		final JPanel panel = new JPanel(new GridLayout(0, 1));
+		//panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Options"));
+		JLabel label1 = new JLabel();
+		label1.setFont(new Font("Futura Md BT", 0, 10));
+		label1.setText("Options");
+		panel.add(label1);
 
-                final JPanel panel = new JPanel(new GridLayout(0, 1));
-                panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Options"));
-                add(Box.createVerticalGlue());
+		add(Box.createVerticalGlue());
 
+		/*
 		JButton rewards = new JButton();
                 final ImageIcon a = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/reward.png");
 		rewards = getDefaultButton(new Account(), "Show pick rewards option panel", a);
@@ -71,46 +80,53 @@ public class ButtonPanel extends JPanel {
                 final ImageIcon b = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/delay.png");
 		rate = getDefaultButton(new GoToProject(), "Show image frame rate setting option panel", b);
 		panel.add(rate);
+		 * 
+		 */
 
 		JButton itemID = new JButton();
-                final ImageIcon c = new ImageIcon(
-			GlobalConfiguration.Paths.getIconDirectory() + "/log.png");
-		itemID = getDefaultButton(new Shot(), "Show item ID lookup option panel", c);
+		final ImageIcon c = new ImageIcon(
+				GlobalConfiguration.Paths.getIconDirectory() + "/log.png");
+		itemID = getDefaultButton(new ItemIdGui(gui), "Lookup item IDs", c);
 		panel.add(itemID);
 
-		JButton ShotUnButton = new JButton();
-		ShotUnButton = getDefaultButton(new ShotUn(), "Show NPC lookup option panel", c);
-		panel.add(ShotUnButton);
+		JButton npcID = new JButton();
+		npcID = getDefaultButton(new NpcIdGui(gui), "Lookup NPC IDs", c);
+		panel.add(npcID);
 
-                final JPanel panel2 = new JPanel(new GridLayout(0, 1));
-                panel2.setBorder(javax.swing.BorderFactory.createTitledBorder("URLs"));
+		JLabel label2 = new JLabel();
+		label2.setFont(new Font("Futura Md BT", 0, 10));
+		label2.setText("URLs");
+		panel.add(label2);
 
-		JButton homeButton = new JButton();
-                final ImageIcon d = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/home.png");
+		JButton homeButton;
+		final ImageIcon d = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/home.png");
 		homeButton = getDefaultButton(new GoTo(), "Visit lazygamerz.org", d);
-		panel2.add(homeButton);
+		panel.add(homeButton);
 
-		JButton wikiButton = new JButton();
-                final ImageIcon e = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/wiki.png");
+		JButton wikiButton;
+		final ImageIcon e = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/wiki.png");
 		wikiButton = getDefaultButton(new GoToWiki(), "Visit runedev Wiki", e);
-		panel2.add(wikiButton);
+		panel.add(wikiButton);
 
-		JButton faceButton = new JButton();
-                final ImageIcon f = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/face.png");
+		JButton faceButton;
+		final ImageIcon f = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/face.png");
 		faceButton = getDefaultButton(new GoToFace(), "Visit LazyGamerz Facebook", f);
-		panel2.add(faceButton);
+		panel.add(faceButton);
 
-		JButton twitterButton = new JButton();
-                final ImageIcon g = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/twit.png");
+		JButton twitterButton;
+		final ImageIcon g = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/twit.png");
 		twitterButton = getDefaultButton(new GoToTwitter(), "Visit runedev Twitter", g);
-		panel2.add(twitterButton);
+		panel.add(twitterButton);
 
-		JButton projectButton = new JButton();
-                final ImageIcon h = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/web.png");
+		JButton projectButton;
+		final ImageIcon h = new ImageIcon(GlobalConfiguration.Paths.getIconDirectory() + "/web.png");
 		projectButton = getDefaultButton(new GoToProject(), "Visit runedev Project", h);
-		panel2.add(projectButton);
-                //add(panel);
-                add(panel2);
+		panel.add(projectButton);
+
+//		JSeparator sep2 = new JSeparator();
+//		panel.add(sep2);
+
+		add(panel);
 	}
 
 	private JButton getDefaultButton(final Action a, final String tip, final ImageIcon i) {

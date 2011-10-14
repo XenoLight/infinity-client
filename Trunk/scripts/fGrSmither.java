@@ -2,15 +2,16 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSObject;
 import org.rsbot.script.wrappers.RSTile;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 @ScriptManifest(authors = {"Fagerheim"}, category = "Smithing", name = "fGrSmither", version = 1.15, description = "<html>n<body>n<font size='6' color='black'><center><b>fGrSmither v1.15</b></center></font><font color='black'><p align='center'>Select the Bar type, Item and Hammer!</p><br /><center><select name='bar'><option>Bronze<option>Iron<option>Steel<option>Mithril<option>Adament<option>Rune</select> <select name='make'>"
 + "<option>Item"
@@ -105,10 +106,10 @@ public class fGrSmither extends Script implements PaintListener {
             mouse.move(x + random(-100, 100), y + random(-50, 50));
         }
         if (random(1, 60) == 1) {
-            game.openTab(Constants.TAB_STATS);
+            game.openTab(Game.tabStats);
             mouse.move(random(669, 706), random(264, 290));
             wait(random(731, 2313));
-            game.openTab(Constants.TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
         }
     }
 
@@ -278,10 +279,10 @@ public class fGrSmither extends Script implements PaintListener {
     }
 
     public boolean clickInventoryItem(final int itemID) {
-        if (game.getCurrentTab() != Constants.TAB_INVENTORY
+        if (game.getCurrentTab() != Game.tabInventory
                 && !iface.get(Constants.INTERFACE_BANK).isValid()
                 && !iface.get(Constants.INTERFACE_STORE).isValid()) {
-            game.openTab(Constants.TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
         }
         final int[] items = inventory.getArray();
         final java.util.List<Integer> possible = new ArrayList<Integer>();

@@ -54,6 +54,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
 import org.rsbot.event.listeners.PaintListener;
@@ -264,7 +265,7 @@ public class zzAutoAlcher extends Script implements PaintListener, MessageListen
             // Click the magic spell, switches to inventory, so wait for it
             magic.castSpell(spellid);
             int ct = 0;
-            while (ct < 20 && game.getCurrentTab() != TAB_INVENTORY) {
+            while (ct < 20 && game.getCurrentTab() != Game.tabInventory) {
                 wait(100);
                 ct++;
             }
@@ -275,9 +276,9 @@ public class zzAutoAlcher extends Script implements PaintListener, MessageListen
         } else if (state == STATE.SEL_ITEM) {
             debug("State=" + state);
 
-            if (game.getCurrentTab() == TAB_MAGIC) {
+            if (game.getCurrentTab() == Game.tabMagic) {
                 return random(50, 80);
-            } else if (game.getCurrentTab() == TAB_INVENTORY) {
+            } else if (game.getCurrentTab() == Game.tabInventory) {
                 debug("Selecting inventory item to alch");
 
                 // This ensures we keep alching the same item
@@ -293,12 +294,12 @@ public class zzAutoAlcher extends Script implements PaintListener, MessageListen
                 inventory.clickItem(item, "Cast");
 
                 int ct = 0;
-                while (ct < 20 && game.getCurrentTab() != TAB_MAGIC) {
+                while (ct < 20 && game.getCurrentTab() != Game.tabMagic) {
                     wait(100);
                     ct++;
                 }
 
-                if (game.getCurrentTab() == TAB_INVENTORY) {
+                if (game.getCurrentTab() == Game.tabInventory) {
                     return 10;
                 }
 
@@ -393,8 +394,8 @@ public class zzAutoAlcher extends Script implements PaintListener, MessageListen
                 }
             }
 
-            if (game.getCurrentTab() != TAB_STATS) {
-                game.openTab(TAB_STATS);
+            if (game.getCurrentTab() != Game.tabStats) {
+                game.openTab(Game.tabStats);
                 mouse.move(random(554, 603), random(387, 412));
                 wait(random(1000, 2000));
             }

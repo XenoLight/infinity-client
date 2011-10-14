@@ -18,7 +18,7 @@ public class TPlayerPosition implements TextPaintListener {
 
 	@Override
 	public int drawLine(final Graphics render, int idx) {
-		final RSTile position = ctx.getMyPlayer().getLocation();
+		final RSTile position = ctx.player.getMyLocation();
 		StringUtil.drawLine(render, idx++, "Position: " + position);
 		return idx;
 	}

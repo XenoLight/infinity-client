@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
 import org.rsbot.event.listeners.PaintListener;
@@ -423,11 +424,11 @@ public class zzWatchmanThiever extends Script implements PaintListener, MessageL
                 }
             }
 
-            if (game.getCurrentTab() != TAB_STATS) {
+            if (game.getCurrentTab() != Game.tabStats) {
                 final RSInterfaceChild agitab =
                         iface.get(320).getChild(134);
 
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 mouse.move(new Point(agitab.getAbsoluteX()
                         + random(2, agitab.getWidth() - 1), agitab.getAbsoluteY()
                         + random(2, agitab.getHeight() - 1)));
@@ -454,8 +455,8 @@ public class zzWatchmanThiever extends Script implements PaintListener, MessageL
                 }
             }
 
-            if (game.getCurrentTab() != TAB_FRIENDS) {
-                game.openTab(TAB_FRIENDS);
+            if (game.getCurrentTab() != Game.tabFriends) {
+                game.openTab(Game.tabFriends);
             }
         } else if (r < 50) {  // EquipmentTab
             if (lastAction == Actions.EquipmentTab) {
@@ -485,8 +486,8 @@ public class zzWatchmanThiever extends Script implements PaintListener, MessageL
         }
 
         wait(random(800, 950));
-        if (game.getCurrentTab() != TAB_INVENTORY) {
-            game.openTab(TAB_INVENTORY);
+        if (game.getCurrentTab() != Game.tabInventory) {
+            game.openTab(Game.tabInventory);
         }
         wait(random(250, 350));
         mouse.move(mousePos, 40, 40);

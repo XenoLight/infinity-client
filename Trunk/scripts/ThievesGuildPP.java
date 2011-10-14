@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
 import org.rsbot.event.listeners.PaintListener;
@@ -332,7 +333,7 @@ public class ThievesGuildPP extends Script implements PaintListener,
         int randomNumber = random(1, 4);
         if (randomNumber <= 15) {
             if (randomNumber == 1) {
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 mouse.move(random(620, 665), random(300, 320));
                 wait(random(2000, 2100));
             }
@@ -349,7 +350,7 @@ public class ThievesGuildPP extends Script implements PaintListener,
                 camera.setRotation(random(1, 360));
             }
             if (randomNumber == 5) {
-                game.openTab(TAB_STATS);
+                game.openTab(Game.tabStats);
                 mouse.move(random(619, 665), random(300, 320));
                 wait(random(1000, 1500));
             }

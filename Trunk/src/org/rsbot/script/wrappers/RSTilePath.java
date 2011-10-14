@@ -72,7 +72,7 @@ public final class RSTilePath {
 		if (nextTile == null) {
 			return false;
 		}
-		if (methods.distanceTo(nextTile) > maxDist) {
+		if (nextTile.distanceTo() > maxDist) {
 			return false;
 		}
 		final RSTile lastTile = path[path.length - 1];

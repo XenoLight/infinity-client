@@ -51,9 +51,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.events.MessageEvent;
-import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.event.listeners.MessageListener;
+import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Antiban;
 import org.rsbot.script.Bank;
 import org.rsbot.script.Script;
@@ -61,7 +62,6 @@ import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.antiban.ImprovedRewardsBox;
 import org.rsbot.script.wrappers.RSGroundItem;
 import org.rsbot.script.wrappers.RSInterfaceChild;
-import org.rsbot.script.wrappers.RSItemTile;
 import org.rsbot.script.wrappers.RSPlayer;
 
 @ScriptManifest(authors = {"zzSleepzz"},
@@ -714,8 +714,8 @@ public class zzBowFletcher extends Script implements MessageListener, PaintListe
                 }
             }
 
-            if (game.getCurrentTab() != TAB_STATS) {
-                game.openTab(TAB_STATS);
+            if (game.getCurrentTab() != Game.tabStats) {
+                game.openTab(Game.tabStats);
 
                 int r2 = random(0, 999);
 
@@ -785,8 +785,8 @@ public class zzBowFletcher extends Script implements MessageListener, PaintListe
 
         if (random(0, 99) < 50) {
             wait(random(800, 950));
-            if (game.getCurrentTab() != TAB_INVENTORY) {
-                game.openTab(TAB_INVENTORY);
+            if (game.getCurrentTab() != Game.tabInventory) {
+                game.openTab(Game.tabInventory);
             }
         }
 

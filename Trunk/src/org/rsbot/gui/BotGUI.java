@@ -47,8 +47,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
@@ -72,6 +72,7 @@ import org.rsbot.util.io.HttpClient;
 public class BotGUI extends JFrame implements ActionListener, ScriptListener {
 
 	private static final long serialVersionUID = -2678464873236578L;
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(Bot.class.getPackage()
 			.getName());
 	public static final int PANEL_WIDTH = 765, PANEL_HEIGHT = 502,
@@ -80,8 +81,7 @@ public class BotGUI extends JFrame implements ActionListener, ScriptListener {
 	public static final Map<String, String> themes = new HashMap<String, String>();
         public KeyboardActions keyact = null;
 	public JScrollPane textScroll;
-	public ButtonPanel buttonPanel = new ButtonPanel();
-	public JPanel gamePanel = new JPanel();
+	public ButtonPanel buttonPanel = new ButtonPanel(this);
 	private BotPanel panel;
 	private BotToolBar toolBar;
 	private BotMenuBar menuBar;
@@ -89,6 +89,7 @@ public class BotGUI extends JFrame implements ActionListener, ScriptListener {
 	private TrayIcon trayIcon;
 	private final List<Bot> bots = new ArrayList<Bot>();
 
+	
 	public BotGUI() {
 		init();
 		setTitle(null);
@@ -97,6 +98,10 @@ public class BotGUI extends JFrame implements ActionListener, ScriptListener {
 		setResizable(true);
 	}
 
+	public void addInternalFrame(JInternalFrame frame)  {
+		panel.add(frame);
+	}
+	
 	public void actionPerformed(final ActionEvent evt) {
 		final String action = evt.getActionCommand();
 		String menu;
@@ -237,8 +242,6 @@ public class BotGUI extends JFrame implements ActionListener, ScriptListener {
 		} else if (menu.equals("Skins")) {
 			setTheme(option[1]);
 		} else if (menu.equals("Features")) {
-			final boolean selected = ((JCheckBoxMenuItem) evt.getSource())
-			.isSelected();
 			if (option[1].equals("Script Editor")) {
 			}
 		} else if (menu.equals("Debug")) {
@@ -475,7 +478,9 @@ public class BotGUI extends JFrame implements ActionListener, ScriptListener {
 		add(panel, BorderLayout.CENTER);
 		add(getButtonPanel(), BorderLayout.EAST);
 		add(textScroll, BorderLayout.SOUTH);
+		
 		pack();
+		
 		EventQueue.invokeLater(new Runnable() {
 
 			public void run() {
@@ -615,14 +620,23 @@ public class BotGUI extends JFrame implements ActionListener, ScriptListener {
 	}
 
 	@Override
+	//TODO: Restore version as float when finally released
 	public void setTitle(final String title) {
 		if (title != null) {
+			/*
+			super.setTitle(title + " - " + GlobalConfiguration.NAME + " v"
+					+ ((float) GlobalConfiguration.getVersion() / 100));
+			*/
 			super.setTitle(title + " - " + GlobalConfiguration.NAME + " v2.0 [RC "
-					+ ((float) GlobalConfiguration.getVersion() / 100)
+					+ (GlobalConfiguration.getVersion() / 100)
 					+ "]");
 		} else {
+			/*
+			super.setTitle(GlobalConfiguration.NAME + " v"
+					+ ((float) GlobalConfiguration.getVersion() / 100));
+			*/
 			super.setTitle(GlobalConfiguration.NAME + " v2.0 [RC "
-					+ ((float) GlobalConfiguration.getVersion() / 100)
+					+ (GlobalConfiguration.getVersion() / 100)
 					+ "]");
 		}
 	}

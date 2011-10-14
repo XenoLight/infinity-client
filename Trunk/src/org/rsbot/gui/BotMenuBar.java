@@ -74,6 +74,7 @@ import org.rsbot.util.GlobalConfiguration;
 public class BotMenuBar extends JMenuBar {
 
 	private static final long serialVersionUID = 971579975301998332L;
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(Bot.class.getPackage()
 			.getName());
 	public static final Map<String, Class<?>> DEBUG_MAP = new LinkedHashMap<String, Class<?>>();

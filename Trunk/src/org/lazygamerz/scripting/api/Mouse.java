@@ -21,11 +21,14 @@
  */
 package org.lazygamerz.scripting.api;
 
+import java.applet.Applet;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.Vector;
 
 import org.rsbot.bot.Bot;
+import org.rsbot.client.Client;
 import org.rsbot.script.Methods;
 import org.rsbot.script.MouseHandler;
 
@@ -43,6 +46,51 @@ public class Mouse {
 		this.methods = Bot.methods;
 	}
 
+	/**
+	 * Exercises the middle mouse button by pressing it down near point p1 on
+	 * the screen and dragging it to point p2 on the screen and releasing the
+	 * button.
+	 * 
+	 * @param p1 the starting point
+	 * @param p2 the ending point
+	 */
+	public void dragMiddle(final Point p1, final Point p2) {	
+		dragMiddle(p1.x, p1.y, p2.x, p2.y);
+	}
+	
+	/**
+	 * Exercises the middle mouse button by pressing it down near x1,y1 on
+	 * the screen and dragging it to x2,y2 on the screen and releasing the
+	 * button.
+	 * 
+	 * @param x1 x-coordinate of the starting point
+	 * @param y1 y-coordinate of the starting point
+	 * @param x2 x-coordinate of the ending point
+	 * @param y2 y-coordinate of the ending point
+	 */
+	public void dragMiddle(final int x1, final int y1, final int x2, final int y2) {	
+		Client client = Bot.getClient();
+		Point mloc = getLocation();
+		Point start = new Point(x1,y1);
+		
+		if (mloc.distance(start)>5)  {
+			move(getSpeed(), x1, y1, 0, 0, 0);
+		}
+		
+		MouseEvent me = new MouseEvent((Applet) client,
+				MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, x1, y1,
+				1, false, MouseEvent.BUTTON2);
+		client.getMouse().sendEvent(me);
+		
+		move(getSpeed(), x2, y2, 0, 0, 0);
+		
+		me = new MouseEvent((Applet) client,
+				MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, x2, y2,
+				1, false, MouseEvent.BUTTON2);
+		client.getMouse().sendEvent(me);
+	}
+
+	
 	/**
 	 * Clicks the mouse at its current location.
 	 * 
@@ -277,8 +325,8 @@ public class Mouse {
 	 * @return A <tt>Point</tt> containing the bot mouse x & y coordinates.
 	 */
 	public Point getLocation() {
-		methods.game.client().getMouse();
-		return new Point(methods.input.getX(), methods.input.getY());
+		org.rsbot.client.input.Mouse m = methods.game.client().getMouse();
+		return new Point(m.getX(), m.getY());
 	}
 
 	/**

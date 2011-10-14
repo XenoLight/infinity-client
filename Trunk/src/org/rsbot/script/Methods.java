@@ -57,6 +57,7 @@ import org.rsbot.util.color.ColorUtil;
  * @author This is an open-source project, therefore there are too many to list.
  */
 public class Methods implements Constants {
+	protected final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	/**
 	 * @deprecated Use StringUtil.drawLine();
@@ -226,8 +227,9 @@ public class Methods implements Constants {
 	 * @see #waitForIface(RSInterface, int)
 	 */
 	public void wait(final int ms) {
+		final long start = System.currentTimeMillis();
+
 		try {
-			final long start = System.currentTimeMillis();
 			Thread.sleep(ms);
 			/* Guarantee minimum sleep */
 			long now;
@@ -237,6 +239,8 @@ public class Methods implements Constants {
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
+		
+		Bot.debug(logger, String.format("Waited %sms", System.currentTimeMillis()-start));
 	}
 
 	/**
@@ -960,14 +964,14 @@ public class Methods implements Constants {
 	 * @deprected use skills.getCurrentHitPoints();
 	 */
 	public int getCurrentHitPoints() {
-		return skills.getCurrentHitPoints();
+		return skills.getCurrentHP();
 	}
 
 	/**
 	 * @deprecated use skills.getCurrentLifePoints()
 	 */
 	public int getCurrentLifePoints() {
-		return skills.getCurrentLifePoints();
+		return skills.getCurrentLP();
 	}
 
 	/**

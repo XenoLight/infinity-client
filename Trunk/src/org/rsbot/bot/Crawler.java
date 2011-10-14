@@ -34,6 +34,11 @@ public class Crawler {
 				Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 		final Matcher matcher = pattern.matcher(downloadPage(game, frame));
 		parameters = new HashMap<String, String>();
+		
+		// This parameter is used to properly construct the BotStub's
+		// document base.
+		parameters.put("gamesuffix", game.substring(game.indexOf(".com/")+5));
+		
 		while (matcher.find()) {
 			final String key = removeTrailingChar(matcher.group(1), '"');
 			final String value = removeTrailingChar(matcher.group(2), '"');

@@ -24,10 +24,10 @@ public class DrawModel implements PaintListener {
 	@Override
 	public void onRepaint(final Graphics render) {
 		render.setColor(Color.BLUE);
-		if (!ctx.isLoggedIn()) {
+		if (!ctx.game.isLoggedIn()) {
 			return;
 		}
-		final RSPlayer player = ctx.getMyPlayer();
+		final RSPlayer player = ctx.player.getMine();
 		if (player == null) {
 			return;
 		}
@@ -37,10 +37,10 @@ public class DrawModel implements PaintListener {
 		for (int x = locX - 25; x < locX + 25; x++) {
 			for (int y = locY - 25; y < locY + 25; y++) {
 				final Point screen = Calculations.tileToScreen(x, y, 0);
-				if (!ctx.pointOnScreen(screen)) {
+				if (!ctx.calculate.pointOnScreen(screen)) {
 					continue;
 				}
-				final RSObject[] objects = ctx.getObjectsAt(x, y);
+				final RSObject[] objects = ctx.objects.getAt(x, y);
 				if (objects != null) {
 					for (final RSObject object : objects) {
 						if ((object != null)

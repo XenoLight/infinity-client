@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import org.rsbot.Application;
 import org.rsbot.client.Loader;
 import org.rsbot.loader.GameLoader;
-import org.rsbot.loader.script.ParseException;
 import org.rsbot.util.GlobalConfiguration;
 
 /**

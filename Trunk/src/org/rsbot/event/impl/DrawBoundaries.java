@@ -21,7 +21,7 @@ public class DrawBoundaries implements PaintListener {
 
 	@Override
 	public void onRepaint(final Graphics render) {
-		if (!ctx.isLoggedIn()) {
+		if (!ctx.game.isLoggedIn()) {
 			return;
 		}
 		final int blocks[][] = Bot.getClient().getRSGroundDataArray()[Bot
@@ -115,7 +115,7 @@ public class DrawBoundaries implements PaintListener {
 				 */
 			}
 		}
-		final Point mini = ctx.getMyPlayer().getMinimapLocation();
+		final Point mini = ctx.player.getMine().getMapLocation();
 		render.setColor(Color.red);
 		render.fillRect((int) mini.getX() - 1, (int) mini.getY() - 1, 2, 2);
 	}

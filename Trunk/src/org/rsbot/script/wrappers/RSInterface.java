@@ -16,6 +16,7 @@ import org.rsbot.client.Client;
  */
 public class RSInterface implements Iterable<RSInterfaceChild> {
 
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(Bot.class.getPackage()
 			.getName());
 

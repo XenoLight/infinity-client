@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.listeners.TextPaintListener;
 import org.rsbot.script.Methods;
+import org.rsbot.util.StringUtil;
 
 public class TMenuActions extends Methods implements TextPaintListener {
 
@@ -16,7 +17,7 @@ public class TMenuActions extends Methods implements TextPaintListener {
 		final String[] items = menu.getItems();
 		int i = 0;
 		for (final String item : items) {
-			Methods.drawLine(render, idx++, i++ + ": [red]" + item);
+			StringUtil.drawLine(render, idx++, i++ + ": [red]" + item);
 		}
 		return idx;
 	}

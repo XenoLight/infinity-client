@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Constants;
@@ -117,7 +118,7 @@ public class PicosGlobalMiner2 extends Script implements PaintListener {
                 return random(500, 750);
 
             case 3:
-                game.openTab(Constants.TAB_INVENTORY);
+                game.openTab(Game.tabInventory);
                 return random(500, 750);
 
             case 4:
@@ -129,8 +130,8 @@ public class PicosGlobalMiner2 extends Script implements PaintListener {
                     lastCheck = System.currentTimeMillis();
                     checkTime = random(60000, 180000);
 
-                    if (game.getCurrentTab() != Constants.TAB_STATS) {
-                        game.openTab(Constants.TAB_STATS);
+                    if (game.getCurrentTab() != Game.tabStats) {
+                        game.openTab(Game.tabStats);
                     }
                     mouse.move(660, 227, 50, 28);
                     return random(5000, 8000);
@@ -455,7 +456,7 @@ public class PicosGlobalMiner2 extends Script implements PaintListener {
                 mouse.move(random(150, 450), random(100, 300));
                 break;
             case 2:
-                game.openTab(Constants.TAB_STATS);
+                game.openTab(Game.tabStats);
                 mouse.move(random(170, 470), random(200, 400));
                 break;
             case 3:

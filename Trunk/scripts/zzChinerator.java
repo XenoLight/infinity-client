@@ -63,6 +63,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
@@ -236,8 +237,8 @@ public class zzChinerator extends Script implements PaintListener, MessageListen
         }
         ifLost();
 
-        if (game.getCurrentTab()!=TAB_INVENTORY)
-            game.openTab(TAB_INVENTORY);
+        if (game.getCurrentTab()!=Game.tabInventory)
+            game.openTab(Game.tabInventory);
 
         skills.getCurrentLvl(STAT_HUNTER);
 

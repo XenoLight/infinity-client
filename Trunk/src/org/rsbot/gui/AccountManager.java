@@ -55,7 +55,6 @@ import org.rsbot.util.GlobalConfiguration;
 public class AccountManager extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 6401178388485322197L;
-	@SuppressWarnings("rawtypes")
 	private JList names;
 	private GridBagConstraints c;
 	public final static String sepChar = ":",

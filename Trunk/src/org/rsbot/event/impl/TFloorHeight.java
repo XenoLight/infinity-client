@@ -17,7 +17,7 @@ public class TFloorHeight implements TextPaintListener {
 
 	@Override
 	public int drawLine(final Graphics render, int idx) {
-		final int floor = ctx.getPlane();
+		final int floor = ctx.game.getPlane();
 		StringUtil.drawLine(render, idx++, "Floor " + floor);
 		return idx;
 	}

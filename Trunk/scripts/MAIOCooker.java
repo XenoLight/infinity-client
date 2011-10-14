@@ -45,6 +45,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.events.MessageEvent;
@@ -317,7 +318,7 @@ public class MAIOCooker extends Script implements PaintListener,
 		if (antibanInt == 10 || antibanInt == 50 || antibanInt == 220) {
 			mouse.move(random(40, 720), random(30, 490), 2, 2);
 		} else if (antibanInt == 120) {
-			game.openTab(TAB_STATS);
+			game.openTab(Game.tabStats);
 			wait(random(500, 600));
 			mouse.move(674 + (random(1, 45)), 294 + (random(1, 22)));
 			wait(random(3500, 6000));

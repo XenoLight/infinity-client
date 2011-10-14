@@ -488,12 +488,10 @@ public class InfinityKiller extends Script implements PaintListener, MessageList
      */
     public void onRepaint(Graphics g) {
         final ScriptManifest properties = getClass().getAnnotation(ScriptManifest.class);
-        int RealLvL = skills.getRealLvl(trainingSkill);
         int currentXP = skills.getCurrentXP(trainingSkill);
         int currentLVL = skills.getCurrentLvl(trainingSkill);
         int currentPurLVL = skills.getPercentToNextLvl(trainingSkill);
         int XPToNextLvL = skills.getXPToNextLvl(trainingSkill);
-        final double XP = 68;//special skill define
 
         if (game.isLoggedIn()) {
             //sets up the paint visual run timer for the user

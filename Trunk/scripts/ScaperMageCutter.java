@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
@@ -25,8 +26,8 @@ import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.Skills;
-import org.rsbot.script.wrappers.RSInterface;
 import org.rsbot.script.wrappers.RSGroundItem;
+import org.rsbot.script.wrappers.RSInterface;
 import org.rsbot.script.wrappers.RSObject;
 import org.rsbot.script.wrappers.RSTile;
 import org.rsbot.util.io.ScreenshotUtil;
@@ -141,25 +142,6 @@ public class ScaperMageCutter extends Script implements PaintListener,
         return closest;
     }
 
-    public boolean atTree(final RSTile tile) {
-        try {
-            final Point location = Calculations.tileToScreen(tile.getX(), tile.getY(), x1, x2, 0);
-
-            if (location.x == -1 || location.y == -1 || location.x > 513
-                    || location.y > 335 || location.x < 0 || location.y < 0) {
-                return false;
-            }
-            if (getMenuActions()[0].toLowerCase().contains("down")) {
-                mouse.click(true, 15);
-                wait(random(1000, 2000));
-                return true;
-            }
-            return false;
-        } catch (final Exception e) {
-        }
-        return true;
-    }
-
     public RSObject getClosestTreeByID(final int... ids) {
         RSObject cur = null;
         double dist = -1;
@@ -225,28 +207,6 @@ public class ScaperMageCutter extends Script implements PaintListener,
         }
     }
 
-    public boolean clickInventoryItem(int itemID, boolean click) {
-        if (game.getCurrentTab() != Constants.TAB_INVENTORY
-                && !iface.get(INTERFACE_BANK).isValid()
-                && !iface.get(INTERFACE_STORE).isValid()) {
-            game.openTab(Constants.TAB_INVENTORY);
-        }
-        int[] items = inventory.getArray();
-        java.util.List<Integer> possible = new ArrayList<Integer>();
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == itemID) {
-                possible.add(i);
-            }
-        }
-        if (possible.isEmpty()) {
-            return false;
-        }
-        int idx = possible.get(random(0, possible.size()));
-        Point t = inventory.getItemPoint(idx);
-        mouse.click(t, 5, 5, click);
-        return true;
-    }
-
     private boolean inCamelot() {
         return player.getMyLocation().getY() >= 3474
                 && player.getMyLocation().getY() <= 3481
@@ -268,29 +228,6 @@ public class ScaperMageCutter extends Script implements PaintListener,
         }
     }
 
-    /**
-     * BY: Scaper~~
-     *
-     * @param object <RSObject> Object to search for
-     * @param action <String> What action to do?
-     * @return <boolean> true if it found the object, and performed the action.
-     */
-    public boolean atMultiTiledTree_4(RSObject object, String action) {
-        RSTile rstile = object.getLocation();
-        RSTile rstile4 = new RSTile(rstile.getX() + 1, rstile.getY() + 1);
-        Point point = Calculations.tileToScreen(rstile.getX(), rstile.getY(),
-                10);
-        Point point1 = Calculations.tileToScreen(rstile4.getX(),
-                rstile4.getY(), 10);
-        Point point2 = new Point((point.x + point1.x) / 2,
-                (point.y + point1.y) / 2);
-        if (point2.x == -1 || point2.y == -1) {
-            return false;
-        } else {
-            mouse.move(point2, 3, 3);
-            return menu.action(action);
-        }
-    }
 
     public void waitWhileMoving() {
         wait(random(800, 1000));
@@ -299,14 +236,6 @@ public class ScaperMageCutter extends Script implements PaintListener,
         }
     }
 
-    public boolean walkTile(RSTile t) {
-        if (t.isOnScreen()) {
-            tile.click(t, "Walk");
-        } else {
-            walk.to(t);
-        }
-        return true;
-    }
 
     public int loop() {
 
@@ -321,7 +250,7 @@ public class ScaperMageCutter extends Script implements PaintListener,
             }
             final RSObject bankBooth = objects.getNearestByID(bankID);
             tree = getClosestTreeByID(mageTree);
-            setMaxAltitude();
+            camera.setAltitude(true);
             nest();
             mouse.getSpeed();
             if (player.getMyEnergy() > random(60, 100)) {
@@ -365,13 +294,13 @@ public class ScaperMageCutter extends Script implements PaintListener,
                         wait(random(1000, 2000));
                     }
                     if (bank.isOpen()) {
-                        if (inventoryContainsAny(axeID)) {
+                        if (inventory.contains(axeID)) {
                             bank.depositAllExcept(axeID);
-                            if (inventoryContainsAny(tabID)) {
+                            if (inventory.contains(tabID)) {
                                 bank.depositAllExcept(tabID);
                             }
                         } else {
-                            hitDepositButton();
+                            bank.depositAll();
                             wait(random(1000, 2000));
                         }/*
                          * try { bank.depositAllExcept(axeID); } catch (final
@@ -408,7 +337,7 @@ public class ScaperMageCutter extends Script implements PaintListener,
                         if (treeLocs[treeIndex].isOnScreen()
                                 && player.getMine().getAnimation() == -1) {
 
-                            atMultiTiledTree_4(tree, "Chop");
+                            tree.action("Chop ");
                             wait(random(100, 500));
                             return random(500, 1000);
                         }
@@ -426,7 +355,7 @@ public class ScaperMageCutter extends Script implements PaintListener,
                             return antiBan();
                         }
                         status = "Waiting To Chop...";
-                        atTree(tree.getLocation());
+                        tree.action("Chop ");
                         wait(random(300, 1250));
                         return antiBan();
                     }
@@ -562,7 +491,7 @@ public class ScaperMageCutter extends Script implements PaintListener,
             g.drawImage(cape, 10, 10, null);
             g.drawImage(hood, 434, 10, null);
 
-            // if(game.getCurrentTab() == TAB_INVENTORY) {
+            // if(game.getCurrentTab() == Game.tabInventory) {
 
             /** Title Box **/
             g.setColor(new Color(204, 204, 0));
@@ -647,17 +576,6 @@ public class ScaperMageCutter extends Script implements PaintListener,
         return (nf.format(hours) + ":" + nf.format(minutes) + ":" + nf.format(seconds));
     }
 
-    private boolean inventoryContainsAny(int... items) {
-        for (int item : inventory.getArray()) {
-            for (int id : items) {
-                if (item == id) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public void dropJunk() {
         if (inventory.contains(junk)) {
             clickInventoryArray(junk, "Drop");
@@ -666,10 +584,10 @@ public class ScaperMageCutter extends Script implements PaintListener,
     }
 
     private boolean clickInventoryArray(int[] itemID, String option) {
-        if (game.getCurrentTab() != TAB_INVENTORY
+        if (game.getCurrentTab() != Game.tabInventory
                 && !iface.get(INTERFACE_BANK).isValid()
                 && !iface.get(INTERFACE_STORE).isValid()) {
-            game.openTab(TAB_INVENTORY);
+            game.openTab(Game.tabInventory);
         }
         int[] items = inventory.getArray();
         java.util.List<Integer> possible = new ArrayList<Integer>();
@@ -690,17 +608,6 @@ public class ScaperMageCutter extends Script implements PaintListener,
         }
     }
 
-    public boolean hitDepositButton() {
-        if (!bank.isOpen()) {
-            return false;
-        }
-        Point p = mouse.getLocation();
-        if (!(p.x < 413 && p.x > 381 && p.y < 320 && p.y > 297)) {
-            mouse.move(random(381, 413), random(297, 320));
-        }
-        mouse.click(true);
-        return true;
-    }
 
     public void waitTillStill(int timeout) {
         for (int i = 0; i < Math.round(timeout / 50); i++) {
@@ -809,8 +716,8 @@ public class ScaperMageCutter extends Script implements PaintListener,
                 }
                 return random(1300, 1600);
             case 3:
-                if (game.getCurrentTab() != TAB_INVENTORY) {
-                    game.openTab(TAB_INVENTORY);
+                if (game.getCurrentTab() != Game.tabInventory) {
+                    game.openTab(Game.tabInventory);
                     return random(500, 750);
                 } else {
                     return random(500, 750);
@@ -824,8 +731,8 @@ public class ScaperMageCutter extends Script implements PaintListener,
                     lastCheck = System.currentTimeMillis();
                     checkTime = random(60000, 180000);
 
-                    if (game.getCurrentTab() != Constants.TAB_STATS) {
-                        game.openTab(Constants.TAB_STATS);
+                    if (game.getCurrentTab() != Game.tabStats) {
+                        game.openTab(Game.tabStats);
                     }
                     mouse.move(693, 403);
                     return random(5000, 8000);
@@ -869,11 +776,6 @@ public class ScaperMageCutter extends Script implements PaintListener,
         }
     }
 
-    public void setMaxAltitude() {
-        Bot.getInputManager().pressKey((char) 38);
-        wait(random(500, 1000));
-        Bot.getInputManager().releaseKey((char) 38);
-    }
 
     public void turnCamera() {
         char[] LR = new char[]{KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT};

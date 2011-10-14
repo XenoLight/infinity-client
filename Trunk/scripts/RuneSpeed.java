@@ -9,13 +9,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -35,11 +33,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.events.MessageEvent;
-import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.event.listeners.MessageListener;
+import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Calculations;
 import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
@@ -1557,7 +1556,7 @@ public class RuneSpeed extends Script implements PaintListener,
 		try {
 			cameraHeight();
 			if (tiaracheck) {
-				if (game.getCurrentTab() != Constants.TAB_EQUIPMENT && !tiarabank)
+				if (game.getCurrentTab() != Game.tabEquipment && !tiarabank)
 					if (equipment.containsOneOf(Tiara)) {
 						log("Succesfully found " + TiaraName
 								+ " Tiara in equipment.");
@@ -2039,9 +2038,9 @@ public class RuneSpeed extends Script implements PaintListener,
 			gotThirdRune = true;
 
 		if (invCount(563) > 0 && gotThirdRune) {
-			if (game.getCurrentTab() != Constants.TAB_MAGIC) {
+			if (game.getCurrentTab() != Game.tabMagic) {
 				if (clickOrPress == 0) {
-					game.openTab(Constants.TAB_MAGIC);
+					game.openTab(Game.tabMagic);
 				} else {
 					Bot.getInputManager().pressKey((char) KeyEvent.VK_F4);
 					wait(random(50, 75));
@@ -2049,7 +2048,7 @@ public class RuneSpeed extends Script implements PaintListener,
 				}
 				wait(100);
 			}
-			if (game.getCurrentTab() == Constants.TAB_MAGIC) {
+			if (game.getCurrentTab() == Game.tabMagic) {
 				int Spell, x1, x2, y1, y2;
 				boolean arrived = false;
 				if (varrockTeleport) {
@@ -2704,7 +2703,7 @@ public class RuneSpeed extends Script implements PaintListener,
 			return true;
 
 		if (clickOrPress == 0) {
-			game.openTab(Constants.TAB_EQUIPMENT);
+			game.openTab(Game.tabEquipment);
 		} else {
 			Bot.getInputManager().pressKey((char) KeyEvent.VK_F2);
 			wait(random(50, 75));

@@ -106,10 +106,7 @@ public class LogTextArea extends JList {
 		.getBorder("List.focusCellHighlightBorder");
 		private final Color DARK_GREEN = new Color(0, 0xcc, 0);
 		private final Color DARK_RED = new Color(0xcc, 0, 0);
-		private final Color DARK_PURPLE = new Color(0xcc, 0, 0xcc);
 		private final Color DARK_BLUE = new Color(0, 0, 0xcc);
-		private final Color GREY = new Color(0xcc, 0xcc, 0xcc);
-
 		@Override
 		public Component getListCellRendererComponent(final JList list,
 				final Object value, final int index, final boolean isSelected,

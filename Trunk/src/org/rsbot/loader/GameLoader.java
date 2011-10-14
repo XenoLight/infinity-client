@@ -175,7 +175,7 @@ public class GameLoader {
 
 	public int getRemoteVersion(final int start) throws IOException {
 		for (int i = start; i < start + 50; i++) {
-			final Socket sock = new Socket("world53." + getTargetName() + ".com", PORT_CLIENT);
+			final Socket sock = new Socket("world76" + getTargetName() + ".com", PORT_CLIENT);
 			final byte[] payload = new byte[]{15, 0, 0, (byte) (i >> 8), (byte) i};
 			sock.getOutputStream().write(payload, 0, payload.length);
 			if (sock.getInputStream().read() == 0) {

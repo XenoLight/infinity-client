@@ -9,11 +9,12 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.events.MessageEvent;
-import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.event.listeners.MessageListener;
+import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
@@ -209,8 +210,8 @@ public class BurghSharkRapist extends Script implements MessageListener, PaintLi
         int r = random(1, 35);
         if (randomNum == 6) {
             if (r == 1) {
-                if (game.getCurrentTab() != Constants.TAB_STATS) {
-                    game.openTab(Constants.TAB_STATS);
+                if (game.getCurrentTab() != Game.tabStats) {
+                    game.openTab(Game.tabStats);
                     mouse.move(random(670, 690), random(400, 410));
                     wait(random(1000, 1500));
                 }

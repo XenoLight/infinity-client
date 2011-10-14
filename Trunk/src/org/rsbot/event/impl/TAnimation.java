@@ -18,8 +18,8 @@ public class TAnimation implements TextPaintListener {
 	@Override
 	public int drawLine(final Graphics render, int idx) {
 		int animation;
-		if (ctx.isLoggedIn()) {
-			animation = ctx.getMyPlayer().getAnimation();
+		if (ctx.game.isLoggedIn()) {
+			animation = ctx.player.getMine().getAnimation();
 		} else {
 			animation = -1;
 		}

@@ -4,18 +4,31 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.client.input.Mouse;
 import org.rsbot.event.listeners.PaintListener;
-import org.rsbot.script.Calculations;
-import org.rsbot.script.Constants;
 import org.rsbot.script.Script;
+import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSInterface;
 import org.rsbot.script.wrappers.RSObject;
 import org.rsbot.script.wrappers.RSTile;
 
-@org.rsbot.script.ScriptManifest(authors = { "Epic_" }, category = "Woodcutting", name = "EpicWoodcutter", version = 3.4, description = "<html><head></head><body bgcolor='#222222'><center><table><tr><td width='350' valign='top'><center><div style='font-family:Calibri, Arial;color:#FF3300; font-size:36px'>EpicWoodcutter</div><div style='font-family:Calibri, Arial;color:#FFFFFF; font-size:16px'>v3.4 by Epic_ <br /> </div><div style='font-family:Calibri, Arial;color:#FF3300; font-size:16px'>Quick Select</div><div><table bordercolor='#FF3300' border='1' cellpadding='0' cellspacing='0' ><tr><td align='center' style='font-family:Calibri, Arial;color:#FFFFFF; font-size:12px'><b>Tree Locations</b> <br /><select name='trees'><option>Trees 1<option>Trees 2<option>Trees 3</select> <select name='oaks'><option>Oaks 1</select> <select name='willows'><option>Willows 1<option>Willows 2<option>Willows 3</select> <br /><strong>Hatchet Retrieval</strong> <br />[Mithril<input type='checkbox' name='getMithrilAxeArg' value='true' checked='checked'>][Adamant<input type='checkbox' name='getAdamantAxeArg' value='true' checked='checked'>][Rune<input type='checkbox' name='getRuneAxeArg' value='true' checked='checked'>] <br /><strong>Yews</strong> <br /><select name='cutYewsArg'><option>Yews from 65<option>Yews from 60<option>Yews from 70<option>never</select></td></tr></table></div><div style='font-family:Calibri, Arial;color:#FF3300; font-size:16px'>Instructions</div><div style='font-family:Calibri, Arial;color:#FFFFFF; font-size:11px' align='justify'>This script is a woodcutter that trains around Rimmington. It has a built in deathwalk and will find its way to the trees wherever you start it. It is intended for training your woodcutting from 1 to yews as fast as possible, and trains in the most efficient way to get there. Locations are ranked in order best to worst, so only use other locations if the first ones are full. <br /> <br /> It will retrieve the selected axes from the bank when you reach the required level to use them. Note that it is best to start with the axe in the inventory, not wielded. The detauls of what trees the script will cut can be found below. It is important to not that while it powercuts normal, oak and willow trees, it does bank yew trees for profit. <ul><li> 1-20 - Normal Trees </li><li> 20-35 - Oak Trees </li><li> 35-Selected - Willow Trees </li><li> Selected onwards - Yew Trees </li></ul>If you have any further questions, do not hesitate to post them in the official thread (the link can be found at the top) and I will get on to you as soon as possible. Also, feedback, progress reports and new ideas are extremely welcome!</div></center> </td></tr></table></center></body></html>")
+@org.rsbot.script.ScriptManifest(
+	authors = { "Epic_" }, 
+	category = "Woodcutting", 
+	name = "EpicWoodcutter", 
+	version = 3.5, 
+	description = 
+		"<html><head></head><body bgcolor='#222222'><center>" +
+		"<table><tr><td width='350' valign='top'><center>" +
+		"	<div style='font-family:Calibri, Arial;color:#FF3300; font-size:28px'>EpicWoodcutter</div>" +
+		"<div style='font-family:Calibri, Arial;color:#FFFFFF; font-size:12px'>v3.5 by Epic_ <br /> </div>" +
+		"<div style='font-family:Calibri, Arial;color:#FF3300; font-size:12px'>Quick Select</div>" +
+		"<div><table bordercolor='#FF3300' border='1' cellpadding='0' cellspacing='0' ><tr><td align='center' style='font-family:Calibri, Arial;color:#FFFFFF; font-size:10px'><b>Tree Locations</b> <br /><select name='trees'><option>Trees 1<option>Trees 2<option>Trees 3</select> <select name='oaks'><option>Oaks 1</select> <select name='willows'><option>Willows 1<option>Willows 2<option>Willows 3</select> <br /><strong>Hatchet Retrieval</strong> <br />[Mithril<input type='checkbox' name='getMithrilAxeArg' value='true' checked='checked'>][Adamant<input type='checkbox' name='getAdamantAxeArg' value='true' checked='checked'>][Rune<input type='checkbox' name='getRuneAxeArg' value='true' checked='checked'>] <br /><strong>Yews</strong> <br /><select name='cutYewsArg'><option>Yews from 65<option>Yews from 60<option>Yews from 70<option>never</select></td></tr></table></div><div style='font-family:Calibri, Arial;color:#FF3300; font-size:12px'>Instructions</div><div style='font-family:Calibri, Arial;color:#FFFFFF; font-size:11px' align='justify'>This script is a woodcutter that trains around Rimmington. It has a built in deathwalk and will find its way to the trees wherever you start it. It is intended for training your woodcutting from 1 to yews as fast as possible, and trains in the most efficient way to get there. Locations are ranked in order best to worst, so only use other locations if the first ones are full. <br /> <br /> It will retrieve the selected axes from the bank when you reach the required level to use them. Note that it is best to start with the axe in the inventory, not wielded. The detauls of what trees the script will cut can be found below. It is important to not that while it powercuts normal, oak and willow trees, it does bank yew trees for profit. <ul><li> 1-20 - Normal Trees </li><li> 20-35 - Oak Trees </li><li> 35-Selected - Willow Trees </li><li> Selected onwards - Yew Trees </li></ul>If you have any further questions, do not hesitate to post them in the official thread (the link can be found at the top) and I will get on to you as soon as possible. Also, feedback, progress reports and new ideas are extremely welcome!</div></center> </td></tr></table></center></body></html>")
 public class EpicWoodcutter extends Script implements PaintListener {
+
+    ScriptManifest props = getClass().getAnnotation(ScriptManifest.class);
 
 /*   Change Log
  *   3.4 Added new tree IDs for the region south of Falador/Rimmington.
@@ -23,8 +36,6 @@ public class EpicWoodcutter extends Script implements PaintListener {
 	
 	
    // VARIABLES //
-   public double version = 3.4;
-
    public int startLevel;
    public int startEXP;
    public long EXPGained;
@@ -249,7 +260,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
             drawStringWithShadow(""+status,x, y+= spacing, g);
             g.setColor(title);
             drawStringWithShadow("Runtime: "+hours+":"+minutes+":"+seconds, x, y+= spacing, g);
-            drawStringWithShadow("Version: "+version, x, y+= spacing, g);
+            drawStringWithShadow("Version: "+props.version(), x, y+= spacing, g);
 
 
          }
@@ -328,7 +339,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
             if ((skills.getCurrentLvl(8) >= 41)
                && !inventory.contains(runeAxe)) {
                status = "Walking to bank";
-               walkToTile(faladorEastBank);
+               walk.to(faladorEastBank);
                wait(random(1000, 2000));
                swapAxe(runeAxe);
                return random(500, 800);
@@ -339,7 +350,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
                && (skills.getCurrentLvl(8) < 41)
                && !inventory.contains(adamantAxe)) {
                status = "Walking to bank";
-               walkToTile(faladorEastBank);
+               walk.to(faladorEastBank);
                wait(random(1000, 2000));
                swapAxe(adamantAxe);
                return random(500, 800);
@@ -350,7 +361,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
                && (skills.getCurrentLvl(8) < 31)
                && !inventory.contains(mithrilAxe)) {
                status = "Walking to bank";
-               walkToTile(faladorEastBank);
+               walk.to(faladorEastBank);
                wait(random(1000, 2000));
                swapAxe(mithrilAxe);
                return random(500, 800);
@@ -359,7 +370,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
 
          if (player.getMyLocation().getX() > halfWayWalkPoint.getX() + 5) {
             status = "Walking";
-            walkToTile(halfWayWalkPoint);
+            walk.to(halfWayWalkPoint);
             return random(200, 500);
          }
 
@@ -378,7 +389,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
          if (inventory.isFull() || (bank.getInterface().isValid() && inventory.getCount() == 14)) {
             if (logType == "yews") {
                status = "Walking to bank";
-               walkPathEpic(yewsToBank);
+               walk.pathMM(yewsToBank);
                if (calculate.distanceTo(faladorEastBank) < random (2,5)) {
                   status = "Banking yews";
                   depositYews();
@@ -397,7 +408,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
             currentTrees = NORMALTREES;
             if (calculate.distanceTo(normalTreesLocation) > 12) {
                status = "Walking to trees";
-               walkToTile(normalTreesLocation);
+               walk.to(normalTreesLocation);
                // status = "Return";
                return random(500, 800);
             }
@@ -405,7 +416,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
             currentTrees = OAKTREES;
             if (calculate.distanceTo(oakTreesLocation) > 12) {
                status = "Walking to oaks";
-               walkToTile(oakTreesLocation);
+               walk.to(oakTreesLocation);
                // status = "Return";
                return random(500, 800);
             }
@@ -414,7 +425,7 @@ public class EpicWoodcutter extends Script implements PaintListener {
             currentTrees = WILLOWTREES;
             if (calculate.distanceTo(willowTreesLocation) > 12) {
                status = "Walking to willows";
-               walkToTile(willowTreesLocation);
+               walk.to(willowTreesLocation);
                // status = "Return";
                return random(500, 800);
             }
@@ -422,14 +433,13 @@ public class EpicWoodcutter extends Script implements PaintListener {
             currentTrees = YEWTREES;
             if (calculate.distanceTo(yewTreesLocation) > 12 && !inventory.isFull()) {
                status = "Walking to yews";
-               walkPathEpic(bankToYews);
+               walk.pathMM(bankToYews);
                // status = "Return";
                return random(500, 800);
             }
          }
 
-         if ((player.getMine().getAnimation() != -1 || (player.getMine()
-                                          .isMoving()))) {
+         if ((me.getAnimation() != -1 || (me.isMoving()))) {
             return antiBan();
          } else {
             status = "Cutting " + logType;
@@ -501,59 +511,13 @@ public class EpicWoodcutter extends Script implements PaintListener {
 
       RSObject finalTree = getLowestCorner(Tree);
 
-      if (logType == "oaks" || logType == "yews") {
-         return atTreeEpic33(finalTree, "Chop down");
-      } else {
-         return atTreeEpic(finalTree, "Chop down");
-      }
+      if (finalTree != null)  {
+         return finalTree.action("Chop down");
+      } 
+      
+      return false;
    }
 
-   public boolean atTreeEpic33(final RSObject tree, final String action) {
-      try {
-         final RSTile loc1 = tree.getLocation();
-         final RSTile loc4 = new RSTile(loc1.getX() + 1, loc1.getY() + 1);
-
-         final Point screenLoc = Calculations.tileToScreen(loc4.getX(), loc4.getY(), 10);
-         if (screenLoc.x == -1 || screenLoc.y == -1) {
-            return false;
-         }
-
-         mouse.move(screenLoc, 3, 3);
-         wait(random(200, 300));
-         return menu.action(action);
-      } catch (final Exception e) {
-         log("Small problem encountered, meltdown averted =P");
-         return false;
-      }
-   }
-
-   public boolean atTreeEpic(final RSObject tree, final String action) {
-      try {
-         final RSTile loc1 = tree.getLocation();
-         @SuppressWarnings("unused")
-         final RSTile loc2 = new RSTile(loc1.getX() + 1, loc1.getY());
-         @SuppressWarnings("unused")
-         final RSTile loc3 = new RSTile(loc1.getX(), loc1.getY() + 1);
-         final RSTile loc4 = new RSTile(loc1.getX() + 1, loc1.getY() + 1);
-
-         final Point sloc1 = Calculations.tileToScreen(loc1.getX(), loc1.getY(),
-                                            10);
-         final Point sloc2 = Calculations.tileToScreen(loc4.getX(), loc4.getY(),
-                                            10);
-         final Point screenLoc = new Point((sloc1.x + sloc2.x) / 2,
-                                   (sloc1.y + sloc2.y) / 2);
-         if (screenLoc.x == -1 || screenLoc.y == -1) {
-            return false;
-         }
-
-         mouse.move(screenLoc, 3, 3);
-         wait(random(200, 300));
-         return menu.action(action);
-      } catch (final Exception e) {
-         log("Small problem encountered, meltdown averted =P");
-         return false;
-      }
-   }
 
    public void swapAxe(int axeID) {
       try {
@@ -580,16 +544,15 @@ public class EpicWoodcutter extends Script implements PaintListener {
                }
 
                wait(500);
-               iface.clickChild(Constants.INTERFACE_BANK,
-                        Constants.INTERFACE_BANK_BUTTON_CLOSE);
+               bank.close();
+               
                return;
             }
             bank.depositAll();
             wait(random(400, 800));
             bank.atItem(axeID, "Withdraw-1");
             wait(random(1500, 2100));
-            iface.clickChild(Constants.INTERFACE_BANK,
-                     Constants.INTERFACE_BANK_BUTTON_CLOSE);
+            bank.close();
          }
       } catch (final Exception e) {
       }
@@ -599,8 +562,6 @@ public class EpicWoodcutter extends Script implements PaintListener {
    public void depositYews() {
       try {
     	  bank.open();
-
-         //RSInterface bankInterface= iface.get(Constants.INTERFACE_BANK);
 
          if (bank.isOpen()) {
             bank.depositAllExcept(axeTypes);
@@ -613,17 +574,14 @@ public class EpicWoodcutter extends Script implements PaintListener {
 
 
    public int antiBan() {
-      final int ranNo = random(0, 20);
+      final int ranNo = random(0,2000);
       if (ranNo == 2) {
-         if (game.getCurrentTab() != Constants.TAB_STATS) {
-            game.openTab(Constants.TAB_STATS);
+         if (game.getCurrentTab() != Game.tabStats) {
+            game.openTab(Game.tabStats);
             mouse.move(random(677, 726), random(356, 370));
             wait(random(500, 750));
             return random(100, 200);
          }
-      } else if (ranNo == 3) {
-         game.openTab(Constants.TAB_INVENTORY);
-         return random(200, 400);
       } else if (ranNo == 4) {
          mouse.move(random(0, 700), random(0, 500));
          return random(200, 400);
@@ -632,97 +590,5 @@ public class EpicWoodcutter extends Script implements PaintListener {
          return random(200, 400);
       }
       return random(200, 450);
-   }
-
-   public void walkPathEpic(RSTile tilePath[]) {
-      int nearest = 0;
-      int distance = 999;
-
-      for (int i = 0; i < tilePath.length; i++) {
-         if (calculate.distanceTo(tilePath[i]) < distance) {
-            nearest = i;
-            distance = calculate.distanceTo(tilePath[i]);
-         }
-      }
-
-      for (int j = nearest; j < tilePath.length; j++) {
-         if (walkToTile(tilePath[j]) == false) {
-            return;
-         }
-      }
-
-   }
-
-   public boolean walkToTile(RSTile tile) {
-      int failsRemaining = 6;
-      int locationFailsRemaining = 5;
-      RSTile lastLocation = player.getMyLocation();
-      while (calculate.distanceTo(tile) > 8) {
-         if (player.getMyEnergy() > random(30, 60)) {
-            game.setRun(true);
-         }
-         if (walk.tileMM(tileOnMap2(walk.randomizeTile(tile, 2, 2))) == false) {
-            failsRemaining -= 1;
-            if (failsRemaining <= 0) {
-               status = "Walking failed";
-               log("Walking failed (invalid location), checking for randoms");
-               if (random(1, 3) == 2) {
-                  walk.tileMM(new RSTile(player.getMyLocation()
-                                   .getX() + 2,
-                                   player.getMyLocation().getY() + 2));
-               }
-               return false;
-            }
-            wait(random(300, 800));
-         } else {
-            failsRemaining = 5;
-         }
-         if (player.getMyLocation().getX() == lastLocation.getX()
-            && player.getMyLocation().getY() == lastLocation
-            .getY()) {
-            locationFailsRemaining -= 1;
-            if (locationFailsRemaining <= 0) {
-               status = "Walking failed";
-               log("Walking failed (not moving), checking for randoms");
-               return false;
-            }
-            wait(random(300, 800));
-         } else {
-            lastLocation = player.getMyLocation();
-            locationFailsRemaining = 5;
-         }
-         int countDown = 100;
-         while (walk.getDestination().distanceTo() > 8 && player.getMine().isMoving()) {
-            wait(200);
-            countDown -= 1;
-            if (countDown <= 0) {
-               if (calculate.distanceTo(lumbridge) > 40) {
-                  return false;
-               }
-            }
-         }
-      }
-      if (calculate.distanceTo(tile) > 5) {
-         walk.tileMM(tile);
-      }
-      return true;
-   }
-
-   public RSTile tileOnMap2(RSTile tile) {
-      if (calculate.distanceTo(tile) < 15) {
-         return tile;
-      }
-
-      for (int i = 0; i < 100; i++) {
-         RSTile tileLoc = player.getMyLocation();
-         RSTile tile2 = new RSTile((tile.getX() * 2 + tileLoc.getX()) / 3,
-                             (tile.getY() * 2 + tileLoc.getY()) / 3);
-         if (calculate.distanceTo(tile2) < 15) {
-            return tile2;
-         }
-         tile = tile2;
-      }
-
-      return tile;
    }
 }

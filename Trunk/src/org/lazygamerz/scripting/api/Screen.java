@@ -37,7 +37,11 @@ public class Screen {
 	private int ind_GUI;
 	private int ind_Minimap;
 	private int ind_Compass;
-	private int[] ind_Tabs;
+	
+	// The size of ind_Tabs must match the number of entries in
+	// Game.java's tabNames label list.  The tab constants cannot exceed
+	// the number of entries in this array.
+	private int[] ind_Tabs = new int[18];
 
 	public Screen() {
 		methods = Bot.methods;
@@ -162,8 +166,7 @@ public class Screen {
 		ind_GUI = -1;
 		ind_Minimap = -1;
 		ind_Compass = -1;
-
-		ind_Tabs = new int[17];
+		
 		for (int i = 0; i < ind_Tabs.length; i++) {
 			ind_Tabs[i] = -1;
 		}

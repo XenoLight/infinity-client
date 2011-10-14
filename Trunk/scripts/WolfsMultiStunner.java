@@ -6,11 +6,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Map;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.bot.Bot;
 import org.rsbot.event.EventMulticaster;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.script.Script;
-
 import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSInterfaceChild;
 import org.rsbot.script.wrappers.RSNPC;
@@ -307,8 +307,8 @@ public class WolfsMultiStunner extends Script implements PaintListener, MouseMot
 			}
 
 			/*if (alching == false) {
-				while (game.getCurrentTab() != TAB_MAGIC) {
-					game.openTab(TAB_MAGIC);
+				while (game.getCurrentTab() != Game.tabMagic) {
+					game.openTab(Game.tabMagic);
 					wait(random(50, 300));
 				}
 			}
@@ -335,8 +335,8 @@ public class WolfsMultiStunner extends Script implements PaintListener, MouseMot
 	boolean hasSetToCombatOnly = false;
 	
 	public boolean atSpellInterface() {
-		while (game.getCurrentTab() != TAB_MAGIC) {
-			game.openTab(TAB_MAGIC);
+		while (game.getCurrentTab() != Game.tabMagic) {
+			game.openTab(Game.tabMagic);
 		}
 		if (!hasSetToCombatOnly) {
 			RSInterfaceChild comp = iface.getChild(192, 94).getChildren()[1];
@@ -356,8 +356,8 @@ public class WolfsMultiStunner extends Script implements PaintListener, MouseMot
 	}
 	
 	public void getTileAndCast() {
-		while (game.getCurrentTab() != TAB_MAGIC) {
-			game.openTab(TAB_MAGIC);
+		while (game.getCurrentTab() != Game.tabMagic) {
+			game.openTab(Game.tabMagic);
 			//atSpellInterface();
 		}
 		RSNPC stunTarget = npc.getNearestByID(targetStun);
@@ -377,8 +377,8 @@ public class WolfsMultiStunner extends Script implements PaintListener, MouseMot
 	}
 	
 	public boolean highAlchStuff() {
-		while (game.getCurrentTab() != TAB_MAGIC) {
-			game.openTab(TAB_MAGIC);
+		while (game.getCurrentTab() != Game.tabMagic) {
+			game.openTab(Game.tabMagic);
 			wait(random(50,300));
 		}
 		//mouse.move((int) random(691, 703), (int) random(257, 273));

@@ -91,26 +91,20 @@ public class Objects {
 			return false;
 		}
 		
-		final RSTile location = theDoor.getLocation();
-		int x = location.getX(), y = location.getY();
 		boolean fail = false;
 		
 		switch (direction) {
 		case 'N':
 		case 'n':
-			y++;
 			break;
 		case 'W':
 		case 'w':
-			x--;
 			break;
 		case 'E':
 		case 'e':
-			x++;
 			break;
 		case 'S':
 		case 's':
-			y--;
 			break;
 		default:
 			fail = true;

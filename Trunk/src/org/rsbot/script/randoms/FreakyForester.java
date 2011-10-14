@@ -3,6 +3,7 @@ package org.rsbot.script.randoms;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import org.lazygamerz.scripting.api.Game;
 import org.rsbot.event.events.MessageEvent;
 import org.rsbot.event.listeners.MessageListener;
 import org.rsbot.event.listeners.PaintListener;
@@ -211,8 +212,8 @@ MessageListener {
 			return random(500, 900);
 		}
 		if (unequip && (inventory.getCount(false) != 28)) {
-			if (game.getCurrentTab() != TAB_EQUIPMENT) {
-				game.openTab(TAB_EQUIPMENT);
+			if (game.getCurrentTab() != Game.tabEquipment) {
+				game.openTab(Game.tabEquipment);
 				sleep(random(1000, 1500));
 				iface.clickChild(INTERFACE_EQUIPMENT, 17);
 				return (random(1000, 1500));
